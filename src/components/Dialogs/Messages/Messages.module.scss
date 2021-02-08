@@ -1,0 +1,26 @@
+.messagesSubscriber, .messagesMy {
+  color: #fff;
+  display: flex;
+  margin-bottom: 10px;
+  z-index: 100;
+  img {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+  }
+  .message {
+    border-radius: 8px;
+    padding: 10px;
+    align-self: center;
+    background-color: #d4f52126;
+    margin-left: 20px;
+  }
+}
+.messagesMy{
+  justify-content: flex-end;
+  margin-right: 20px;
+  .message {
+    margin: 0;
+    margin-right: 20px;
+  }
+}

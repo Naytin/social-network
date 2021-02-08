@@ -1,0 +1,105 @@
+.dialogs {
+  display: flex;
+  color: #fff;
+  &Item {
+    padding: 10px 0;
+    margin-right: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    background-color: rgba(28, 33, 185, 0.4);
+    -webkit-box-shadow: 0px 4px 20px 3px rgba(41, 50, 50, 0.81);
+    -moz-box-shadow:    0px 4px 20px 3px rgba(41, 50, 50, 0.81);
+    box-shadow:         0px 4px 20px 3px rgba(41, 50, 50, 0.81);
+    border-radius: 6px;
+    width: 25%;
+    .title {
+      margin: 0 0 10px 0;
+      padding-bottom: 10px;
+      text-align: center;
+      -webkit-box-shadow: 0px 10px 5px 0px rgba(50, 50, 50, 0.36);
+      -moz-box-shadow:    0px 10px 5px 0px rgba(50, 50, 50, 0.36);
+      box-shadow:         0px 10px 5px 0px rgba(50, 50, 50, 0.36);
+    }
+  }
+  .messages {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 75%;
+    border-radius: 6px;
+    padding: 30px 10px 10px 10px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    background-color: rgba(28, 33, 185, 0.4);
+
+  }
+}
+// styling scrollbar
+.message__wrapper {
+  margin-top: 10px;
+}
+
+.message__wrapper, .dialog__wrapper {
+  max-height: 500px;
+  overflow: auto;
+  &::-webkit-scrollbar {
+    width: 0.7em;
+  }
+
+  &::-webkit-scrollbar-track {
+    border-radius: 7px;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    height: 120px;
+    background-color: #1eaef387;
+    border: none;
+    border-radius: 7px;
+  }
+}
+// styling scrollbar
+
+.shadow__bottom {
+  margin-top: 10px;
+  width: 100%;
+  height: 10px;
+  -webkit-box-shadow: 0px -10px 5px 0px rgba(50, 50, 50, 0.36);
+  -moz-box-shadow:    0px -10px 5px 0px rgba(50, 50, 50, 0.36);
+  box-shadow:         0px -10px 5px 0px rgba(50, 50, 50, 0.36);
+}
+
+.shadow__top {
+  width: 100%;
+  height: 10px;
+  -webkit-box-shadow: 0px 10px 5px 0px rgba(50, 50, 50, 0.36);
+  -moz-box-shadow:    0px 10px 5px 0px rgba(50, 50, 50, 0.36);
+  box-shadow:         0px 10px 5px 0px rgba(50, 50, 50, 0.36);
+}
+
+.input_btn__block {
+  color: #fff;
+  bottom: 10px;
+  border-radius: 7px;
+  background: rgba(48, 232, 26, .22);
+  display: flex;
+  padding: 10px 10px;
+  margin-top: 10px;
+
+  -webkit-box-shadow: 0px -10px 5px 0px rgba(50, 50, 50, 0.36);
+  -moz-box-shadow:    0px -10px 5px 0px rgba(50, 50, 50, 0.36);
+  box-shadow:         0px -10px 5px 0px rgba(50, 50, 50, 0.36);
+  input {
+    width: 100%;
+    color: #fff;
+    background-color: transparent;
+    border: none;
+    &::placeholder {
+      color: rgb(255, 255, 255);
+    }
+  }
+  .icon {
+    i {
+      cursor: pointer;
+    }
+  }
+}

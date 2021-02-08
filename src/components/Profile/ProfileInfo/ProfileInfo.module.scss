@@ -1,0 +1,55 @@
+.profileInfo {
+
+  &__wrapper {
+    position: relative;
+    background-image: url('https://incomartour.com.ua/mediafiles/images/places/20180411175712/thumbs/everest%20(7)-tmb-1200x628xfill.jpg');
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 250px;
+    border: 2px solid #fcfbff;
+  }
+  &__avatar{
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    bottom: -30px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    border-radius: 50%;
+    border: 3px solid #fcfbff;
+  }
+  &__des {
+    padding-top: 30px;
+    background-color: #fff;
+    text-align: center;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 2rem;
+  }
+  &__info {
+    padding-bottom: 10px;
+  }
+
+  &__menu {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    &_item {
+      font-weight: 700;
+      color: #000;
+      transition: opacity 0.3s ease-in-out;
+      &:hover {
+        opacity: 0.5;
+      }
+    }
+  }
+
+}
+
+
