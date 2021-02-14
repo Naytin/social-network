@@ -14,6 +14,7 @@ type statusType = {
 }
 
 type dialogsType = {
+    id: string,
     avatar: string,
     name: string,
     status: statusType
@@ -35,10 +36,12 @@ interface stateType  {
 
 type actionType = {
     type: string,
-    value: string
+    value?: string
 }
 
+type mapDispatch = {
+    AddMessage: (value: string) => void
+    AddNewMessageText: (value: string) => void
+}
 
-
-
-type DispatchType = (args: actionType) => actionType
+type DispatchType = (args: string) => string

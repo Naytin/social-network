@@ -1,4 +1,4 @@
-import {actionType, profilePageType} from "../state";
+// import {actionType, profilePageType} from "../state";
 import {ADD_NEW_POST_TEXT, ADD_POST} from "../actions/actions";
 
 
@@ -45,12 +45,11 @@ const profileReducer = (state: profilePageType = initialState, action: actionTyp
                 posts: [...state.posts, {id: 4, message: messageBody, likesCount: 0}]
             }
         case ADD_NEW_POST_TEXT:
-            return {...state, newPostText: action.value}
+            return {...state, newPostText: action.value ? action.value : ''}
         default:
             return state
     }
 }
-
 export default profileReducer;
 
 

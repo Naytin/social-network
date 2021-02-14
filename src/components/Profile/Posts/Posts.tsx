@@ -15,7 +15,7 @@ export const Posts = ({posts, dispatch, newPostText}: propsType) => {
     // создаем ссылку на элемент, который мы привязываем к textarea
     // Использование React.createRef() - это устаревший способ взаимодействия с элементами(BLL - логикой)
     const getMessage = React.createRef<HTMLTextAreaElement>();
-    const [modal, setModal] = React.useState(true)
+    const [modal, setModal] = React.useState(false)
 
     function addPostText() {
         let text = getMessage.current?.value // checking if getMessage has a value or undefined

@@ -8,10 +8,10 @@ export const Navbar = () => {
             <ul className={style.nav__list}>
                 {/*<div className={style.link__item}>*/}
                 {/*    <img src="https://img.icons8.com/ios/30/ffffff/gender-neutral-user.png" alt='' className={style.icon}/>*/}
-                {/*    */}
+
                 {/*</div>*/}
                 <Link className={style.nav__item} to='/Profile'>Profile</Link>
-                <Link className={style.nav__item} to='/dialogs'> Dialogs</Link>
+                <Link className={style.nav__item} to='/dialogs'>Dialogs</Link>
                 <Link className={style.nav__item} to='/News'> News</Link>
                 <Link className={style.nav__item} to='/Music'>Music </Link>
                 <Link className={style.nav__item} to='/Settings'>Settings </Link>

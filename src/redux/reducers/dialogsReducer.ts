@@ -1,27 +1,27 @@
-import {actionType} from "../state";
+// import {actionType} from "../state";
 import {ADD_MESSAGE, ADD_NEW_MESSAGE_TEXT} from "../actions/actions";
 
 
-export type statusType = {
-    title: string,
-    isOnline: boolean
-}
-
-export type dialogsType = {
-    avatar: string,
-    name: string,
-    status: statusType
-}
-export type messagesType = {
-    id: number,
-    message: string,
-    name: string,
-}
-export type dialogsPageType = {
-    dialogs: Array<dialogsType>,
-    messages: Array<messagesType>
-    newMessageText: string
-}
+// export type statusType = {
+//     title: string,
+//     isOnline: boolean
+// }
+//
+// export type dialogsType = {
+//     avatar: string,
+//     name: string,
+//     status: statusType
+// }
+// export type messagesType = {
+//     id: number,
+//     message: string,
+//     name: string,
+// }
+// export type dialogsPageType = {
+//     dialogs: Array<dialogsType>,
+//     messages: Array<messagesType>
+//     newMessageText: string
+// }
 // export type stateType = {
 //     dialogsPage: dialogsPageType
 // }
@@ -34,6 +34,7 @@ export type dialogsPageType = {
 const initialState: dialogsPageType = {
         dialogs: [
             {
+                id: '1',
                 avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSV83gjFPxbUtDH5iJuUHJHG45z--_hYg6GUA&usqp=CAU',
                 name: 'Sveta',
                 status: {
@@ -42,6 +43,7 @@ const initialState: dialogsPageType = {
                 }
             },
             {
+                id: '2',
                 avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5g67tZkLuNcbMvMPfjAO08mstu5QTUr_y5g&usqp=CAU',
                 name: 'Angelina',
                 status: {
@@ -50,6 +52,7 @@ const initialState: dialogsPageType = {
                 }
             },
             {
+                id: '3',
                 avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3AVHYXRxxtX6-fzIMlSWLwqMDKCMVudzdiA&usqp=CAU',
                 name: 'Artem',
                 status: {
@@ -58,6 +61,7 @@ const initialState: dialogsPageType = {
                 }
             },
             {
+                id: '4',
                 avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0OpLU7rYWiPzdGX7LHNfSyDSNQRD8FMoNVA&usqp=CAU',
                 name: 'Vova',
                 status: {
@@ -66,6 +70,7 @@ const initialState: dialogsPageType = {
                 }
             },
             {
+                id: '5',
                 avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0OpLU7rYWiPzdGX7LHNfSyDSNQRD8FMoNVA&usqp=CAU',
                 name: 'Naytin',
                 status: {
@@ -74,6 +79,7 @@ const initialState: dialogsPageType = {
                 }
             },
             {
+                id: '6',
                 avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5g67tZkLuNcbMvMPfjAO08mstu5QTUr_y5g&usqp=CAU',
                 name: 'Svet_v',
                 status: {
@@ -82,6 +88,7 @@ const initialState: dialogsPageType = {
                 }
             },
             {
+                id: '7',
                 avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5g67tZkLuNcbMvMPfjAO08mstu5QTUr_y5g&usqp=CAU',
                 name: '@Lera',
                 status: {
@@ -90,6 +97,7 @@ const initialState: dialogsPageType = {
                 }
             },
             {
+                id: '8',
                 avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0OpLU7rYWiPzdGX7LHNfSyDSNQRD8FMoNVA&usqp=CAU',
                 name: 'Valera',
                 status: {
@@ -130,14 +138,13 @@ const dialogsReducer = (state: dialogsPageType = initialState, action: actionTyp
         case ADD_NEW_MESSAGE_TEXT:
             return {
                 ...state,
-                newMessageText: action.value,
+                newMessageText: action.value ? action.value : '',
             }
         default:
             return state // если ничего не изменилось, по дефолту возвращаем неизмененный стейт
 
     }
 }
-
 
 export default dialogsReducer;
 

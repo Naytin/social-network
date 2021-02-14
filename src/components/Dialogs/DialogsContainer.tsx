@@ -2,24 +2,20 @@ import React from 'react'
 import {connect} from "react-redux";
 import Dialogs from "./Dialogs";
 import {AddMessage, AddNewMessageText} from "../../redux/actionsCreator/dialogsAC";
+import { compose } from 'redux';
+import { AppStateType } from '../../redux/store';
 
+type OwnPropsType = {
 
-class DialogsContainer extends  React.Component {
-
-
-    render() {
-
-        return (
-            <h1>sasa</h1>
-            // <Dialogs  dialogs={this.props}
-            //                                           messages={this.props.messages}
-            //                                           newMessageText={}/>}/>
-        )
+}
+const mapStateToProps = (state: AppStateType):dialogsPageType & OwnPropsType => ({
+        dialogs: state.dialogsPage.dialogs,
+        messages: state.dialogsPage.messages,
+        newMessageText: state.dialogsPage.newMessageText,
     }
-}
-
-const mapStateToProps = (state: stateType) => ({
-    dialogsPage: state.dialogsPage
-}
 )
-export default connect(mapStateToProps, {AddMessage,AddNewMessageText})(DialogsContainer)
+export default compose(
+    // types connect with help generic <>
+    connect<dialogsPageType,mapDispatch,OwnPropsType, AppStateType>(mapStateToProps, {AddNewMessageText,AddMessage})
+    // withAuthRedirect
+)(Dialogs)
