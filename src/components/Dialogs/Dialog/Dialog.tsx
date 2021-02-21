@@ -2,11 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import style from './Dialog.module.scss'
 
-type statusType = {
-    title: string,
-    isOnline: boolean
-}
-
 type objectType = {
     avatar: string,
     name: string,

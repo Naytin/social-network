@@ -39,9 +39,12 @@ type actionType = {
     value?: string
 }
 
-type mapDispatch = {
+type DispatchDialogsType = {
     AddMessage: (value: string) => void
     AddNewMessageText: (value: string) => void
 }
 
-type DispatchType = (args: string) => string
+type DispatchProfileType = {
+    AddPost: (value: string) => void
+    AddNewPostText: (value: string) => void
+}

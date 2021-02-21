@@ -1,18 +1,12 @@
 import React from "react";
 import style from './Post.module.scss'
 
-type PostType = {
-    message: string,
-    likesCount: number
-    id: number
-}
 
-export const Post = ({message, likesCount}: PostType) => {
+export const Post = ({message, likesCount}: postsType) => {
 
     let date = new Date().toJSON().slice(0, 10);
     let time = new Date().toTimeString().slice(0, 8);
-    let dateTime = `${date} ${time}`;
-
+    // let dateTime = `${date} ${time}`;
 
     return (
         <div className={style.post__item}>

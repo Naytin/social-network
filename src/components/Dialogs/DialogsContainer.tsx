@@ -14,8 +14,11 @@ const mapStateToProps = (state: AppStateType):dialogsPageType & OwnPropsType => 
         newMessageText: state.dialogsPage.newMessageText,
     }
 )
-export default compose(
+const DialogsContainer = compose(
     // types connect with help generic <>
-    connect<dialogsPageType,mapDispatch,OwnPropsType, AppStateType>(mapStateToProps, {AddNewMessageText,AddMessage})
+    connect<dialogsPageType,DispatchDialogsType,OwnPropsType, AppStateType>
+    (mapStateToProps, {AddNewMessageText,AddMessage})
     // withAuthRedirect
 )(Dialogs)
+
+export default DialogsContainer

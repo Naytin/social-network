@@ -2,12 +2,7 @@ import style from "../Messages.module.scss";
 import React from "react";
 
 
-type messageType = {
-    name: string,
-    message: string
-}
-
-export const MessageItemMy = ({name, message}: messageType) => {
+export const MessageItemMy = ({name, message, id}: messagesType) => {
     return (
         <div className={style.messagesMy}>
             <span className={style.message}>
@@ -25,7 +20,7 @@ export const MessageItemMy = ({name, message}: messageType) => {
 }
 
 
-export const MessageItem = ({name, message}: messageType) => {
+export const MessageItem = ({name, message, id}: messagesType) => {
     return (
         <div className={style.messagesSubscriber}>
             <div>
