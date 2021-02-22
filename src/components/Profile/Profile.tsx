@@ -3,7 +3,7 @@ import style from './Profile.module.scss'
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import PostsContainer from "./Posts/PostsContainer";
 
-export const Profile = ({posts, newPostText, AddPost, AddNewPostText}: profilePageType & DispatchProfileType) => {
+export const Profile = () => {
     return (
         <div className={style.profile}>
             <ProfileInfo/>

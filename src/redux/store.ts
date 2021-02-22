@@ -1,15 +1,16 @@
 import {createStore, combineReducers,applyMiddleware} from "redux";
 import profileReducer from "./reducers/profileReducer";
 import dialogsReducer from "./reducers/dialogsReducer";
+import usersReducer from "./reducers/usersReducer";
 import thunkMiddleware from 'redux-thunk'
+
 
 
 let reducers = combineReducers({
     profilePage: profileReducer,
-    dialogsPage: dialogsReducer
+    dialogsPage: dialogsReducer,
+    usersPage: usersReducer
 })
-
-console.log(reducers)
 
 type RootReducerType = typeof reducers // with help typeof get types from reducers function
 

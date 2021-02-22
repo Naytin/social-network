@@ -34,9 +34,23 @@ interface stateType  {
     dialogsPage: dialogsPageType
 }
 
+type userType = {
+    id: number | string
+    photos: {small: null | string, large: null | string}
+    followed: boolean
+    name: string
+    status: string | null
+    uniqueUrlName: string | null
+    // location: {city: string, country: string}
+}
+
+type usersType = {
+    users: userType[]
+}
+
 type actionType = {
     type: string,
-    value?: string
+    value?: any
 }
 
 type DispatchDialogsType = {
@@ -48,3 +62,9 @@ type DispatchProfileType = {
     AddPost: (value: string) => void
     AddNewPostText: (value: string) => void
 }
+type DispatchUsersType = {
+    follow: (value: number | string) => void
+    unfollow: (value: number | string) => void
+    setUsers: (value: any) => void
+}
+
