@@ -1,6 +1,5 @@
-import { FOLLOW,  UNFOLLOW, SET_USERS} from "../actions/actions";
-
-
+import {FOLLOW, UNFOLLOW, SET_USERS, SET_CURRENT_PAGE, SET_TOTAL_USERS, TOGGLE_IS_FETCHING} from "../actions/actions";
+import {UsersActionTypes} from "../actionsCreator/usersAC";
 
 const initialState = {
     users: [
@@ -8,29 +7,46 @@ const initialState = {
         // {id: 2, avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSq_I0JFO2DxoAV3J-sI7ajtx0qW0Q5neaY_A&usqp=CAU', followed: true, fullName: 'Sveta', status: 'Status', location: {city: 'Chernihiv', country: 'Ukraine'} },
         // {id: 3, avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSq_I0JFO2DxoAV3J-sI7ajtx0qW0Q5neaY_A&usqp=CAU', followed: false, fullName: 'John', status: 'Status', location: {city: 'Chicago', country: 'US'} }
     ],
-    pageSize: 10,
+    pageSize: 5,
+    totalUsersCount: 0,
+    currentPage: 2,
+    isFetching: false
 }
+
 
 // // Reducer - это чистая функция, которая принимает старый стейт, актион
 // // если нужно модифицирует(добавляет какие-то данные) его по правилам имутабельности (работает с копией стейта и возвращает)
 // // измененную копию из этой функции. Или возвращает нетронутый стейт, если ничего не изменилось.
-const usersReducer = (state: usersType = initialState, action: actionType) => {
+const usersReducer = (state: usersType = initialState, action: UsersActionTypes):usersType => {
     switch (action.type) {
         case FOLLOW:
                 return {
                     ...state,
-                    users: state.users.map(u => u.id === action.value ? {...u, followed: true} : u)
+                    users: state.users.map(u => u.id === action.uId ? {...u, followed: true} : u)
                 }
         // если в case нету ретурна, то необходимо делать брейк, чтобы case не проваливался дальше.
         case UNFOLLOW:
             return {
                 ...state,
-                users: state.users.map(u => u.id === action.value ? {...u, followed: false} : u)
+                users: state.users.map(u => u.id === action.uId ? {...u, followed: false} : u)
             }
         case SET_USERS:
+            return {...state, users: [...action.users]}
+        case SET_CURRENT_PAGE:
             return {
                 ...state,
-                users: [...state.users, ...action.value]
+                currentPage: action.currentPage
+            }
+
+        case SET_TOTAL_USERS:
+            return {
+                ...state,
+                totalUsersCount: action.totalCount > 100 ? 100 : action.totalCount
+            }
+        case TOGGLE_IS_FETCHING:
+            return {
+                ...state,
+                isFetching: action.isFetching
             }
         default:
             return state // если ничего не изменилось, по дефолту возвращаем неизмененный стейт
@@ -38,5 +54,7 @@ const usersReducer = (state: usersType = initialState, action: actionType) => {
     }
 }
 export default usersReducer;
+
+
 
 

@@ -1,4 +1,5 @@
 import React from 'react'
+import s from './Users.module.scss'
 
 // нам нужна классовая компонента, когда мы хотим взаимодействовать с обьектом. и для избежания side Effect-а. в данной ситуации, для запроса на сервер
 // функциональная компонента - это читсая функция, которая принимает пропсы и возвращает jsx, при этом она не может никак менять состояние стейта
@@ -8,9 +9,26 @@ import React from 'react'
 const defaultAvatar =
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSq_I0JFO2DxoAV3J-sI7ajtx0qW0Q5neaY_A&usqp=CAU'
 
-const Users = (props: usersType & DispatchUsersType) => {
+type propsType = {
+    users: userType[]
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
+    onPageChanged: (value: number) => void
+    follow: (uId: number) => void
+    unfollow: (uId: number) => void
+}
 
+const Users = (props: propsType) => {
+    const pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
+    let pages = [];
+    for (let i = 1; i <= pagesCount; i++) {
+        pages.push(i)
+    }
     return <div>
+            <div className={s.pagination}>
+                {pages.map(p => <span onClick={() => props.onPageChanged(p)} className={props.currentPage === p ? s.selected : ''} key={p}>{p}</span>)}
+            </div>
         {
             props.users.map(u => <div key={u.id}>
                 <span>

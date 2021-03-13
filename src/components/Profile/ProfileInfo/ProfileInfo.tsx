@@ -2,15 +2,18 @@ import React from "react";
 import { Link } from "react-router-dom";
 import style from "./ProfileInfo.module.scss";
 
+type PropsType = {
+    profile: profileUserType | null | undefined
+}
 
-
-export const ProfileInfo = () => {
+export const ProfileInfo = (props: PropsType) => {
     return (
         <div className={style.profileInfo}>
             <div className={style.profileInfo__wrapper}>
                 <div>
                     <img className={style.profileInfo__avatar}
-                         src="https://image.flaticon.com/icons/png/512/147/147144.png"
+                         // src="https://image.flaticon.com/icons/png/512/147/147144.png"
+                        src={props.profile?.photos.small}
                          alt=""/>
                 </div>
             </div>
@@ -19,7 +22,7 @@ export const ProfileInfo = () => {
                 <ul className={style.profileInfo__menu}>
                     <Link to='Profile/About' className={style.profileInfo__menu_item}>About</Link>
                     <Link to='Profile/Friends' className={style.profileInfo__menu_item}>Friends</Link>
-                    <h6 className={style.profileInfo__title} >James Luis</h6>
+                    <h6 className={style.profileInfo__title} >{props.profile?.fullName}</h6>
                     <Link to='/Settings' className={style.profileInfo__menu_item}>Settings</Link>
                     <Link to='Profile/Photos' className={style.profileInfo__menu_item}>Photos</Link>
                 </ul>

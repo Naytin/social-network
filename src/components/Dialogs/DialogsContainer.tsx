@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from "react-redux";
 import Dialogs from "./Dialogs";
-import {AddMessage, AddNewMessageText} from "../../redux/actionsCreator/dialogsAC";
+import {addMessage, addNewMessageText} from "../../redux/actionsCreator/dialogsAC";
 import { compose } from 'redux';
 import { AppStateType } from '../../redux/store';
 
@@ -17,7 +17,7 @@ const mapStateToProps = (state: AppStateType):dialogsPageType & OwnPropsType => 
 const DialogsContainer = compose(
     // types connect with help generic <>
     connect<dialogsPageType,DispatchDialogsType,OwnPropsType, AppStateType>
-    (mapStateToProps, {AddNewMessageText,AddMessage})
+    (mapStateToProps, {addNewMessageText,addMessage})
     // withAuthRedirect
 )(Dialogs)
 

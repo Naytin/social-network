@@ -6,6 +6,29 @@ type postsType = {
 type profilePageType = {
     posts: Array<postsType>,
     newPostText: string
+    profile?: profileUserType | null
+}
+type profileUserContacts = {
+    facebook: string | null
+    website: string | null
+    vk: string | null
+    twitter: string | null
+    instagram: string | null
+    youtube: string | null
+    github: string | null
+    mainLink: string | null
+}
+type profileUserType = {
+    aboutMe: string
+    contacts: profileUserContacts
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    userId: number
+    photos: {
+        small: string
+        large: string
+    }
 }
 
 type statusType = {
@@ -35,7 +58,7 @@ interface stateType  {
 }
 
 type userType = {
-    id: number | string
+    id: number
     photos: {small: null | string, large: null | string}
     followed: boolean
     name: string
@@ -46,25 +69,34 @@ type userType = {
 
 type usersType = {
     users: userType[]
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
+    isFetching: boolean
 }
 
 type actionType = {
     type: string,
-    value?: any
+    value?: string
 }
 
 type DispatchDialogsType = {
-    AddMessage: (value: string) => void
-    AddNewMessageText: (value: string) => void
+    addMessage: (value: string) => void
+    addNewMessageText: (value: string) => void
+
 }
 
 type DispatchProfileType = {
-    AddPost: (value: string) => void
-    AddNewPostText: (value: string) => void
-}
-type DispatchUsersType = {
-    follow: (value: number | string) => void
-    unfollow: (value: number | string) => void
-    setUsers: (value: any) => void
+    addPost: (value: string) => void
+    addNewPostText: (value: string) => void
+    setUserProfile: (profile: profileUserType) => void
 }
 
+type DispatchUsersType = {
+    follow: (uId: number) => void
+    unfollow: (uId: number) => void
+    setUsers?: (users: userType[]) => void
+    setCurrentPage?: (currentPage: number) => void
+    setTotalUsersCount?: (totalCount: number) => void
+    toggleIsFetching: (isFetching: boolean) => void
+}

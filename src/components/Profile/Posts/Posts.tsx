@@ -2,7 +2,7 @@ import React from "react";
 import {Post} from "./Post/Post";
 import style from './Posts.module.scss'
 
-export const Posts = ({posts, newPostText, AddPost, AddNewPostText}: profilePageType & DispatchProfileType) => {
+export const Posts = ({posts, newPostText, addPost, addNewPostText}: profilePageType & DispatchProfileType) => {
     // создаем ссылку на элемент, который мы привязываем к textarea
     // Использование React.createRef() - это устаревший способ взаимодействия с элементами(BLL - логикой)
     const getMessage = React.createRef<HTMLTextAreaElement>();
@@ -11,28 +11,29 @@ export const Posts = ({posts, newPostText, AddPost, AddNewPostText}: profilePage
     const addPostText = () => {
         let text = getMessage.current?.value // checking if getMessage has a value or undefined
         if (text) {
-            AddPost(text)
+            addPost(text)
             setModal(!modal)
         }
     }
     const onChangePostText = () => {
         let text = getMessage.current?.value
         if (text) {
-            AddNewPostText(text)
+            addNewPostText(text)
         }
     }
     const onModal = () => setModal(!modal)
 
-    let post = posts.map((elem, i) => <Post message={elem.message} likesCount={elem.likesCount} id={elem.id} key={i}/>)
+    let post = posts.map((elem, i) => <Post message={elem.message}
+                                            likesCount={elem.likesCount} id={elem.id} key={i}/>)
     return (
         <div className={style.posts__wrapper}>
             <span className={style.modal__open} onClick={onModal}></span>
             {modal &&
-                <div className={style.modal}>
+            <div className={style.modal}>
                     <textarea ref={getMessage} onChange={onChangePostText} value={newPostText}>
                     </textarea>
-                    <button onClick={addPostText}>Add Post</button>
-                </div>
+                <button onClick={addPostText}>Add Post</button>
+            </div>
             }
             <div className="post">
                 {post}

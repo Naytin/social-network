@@ -1,4 +1,5 @@
-import { ADD_NEW_POST_TEXT, ADD_POST } from "../actions/actions";
+import {ADD_NEW_POST_TEXT, ADD_POST, SET_USER_PROFILE} from "../actions/actions";
+import {ProfileACTypes} from "../actionsCreator/profileAC";
 
 let initialState: profilePageType = {
     posts: [
@@ -7,8 +8,8 @@ let initialState: profilePageType = {
         { id: 3, message: 'I\'m Vova', likesCount: 111 },
         { id: 4, message: 'Goodbye', likesCount: 1 },
     ],
-    newPostText: 'write something'
-    // profile: null,
+    newPostText: 'write something',
+    profile: null
     // status: 'Hello my friend!'
 };
 
@@ -16,7 +17,7 @@ let initialState: profilePageType = {
 // Reducer - это чистая функция, которая принимает старый стейт, актион
 // если нужно модифицирует(добавляет какие-то данные) его по правилам имутабельности (работает с копией стейта и возвращает)
 // измененную копию из этой функции. Или возвращает нетронутый стейт, если ничего не изменилось.
-const profileReducer = (state: profilePageType = initialState, action: actionType): profilePageType => {
+const profileReducer = (state: profilePageType = initialState, action: ProfileACTypes): profilePageType => {
     switch (action.type) {
         case ADD_POST:
             let messageBody = state.newPostText;
@@ -27,6 +28,8 @@ const profileReducer = (state: profilePageType = initialState, action: actionTyp
             }
         case ADD_NEW_POST_TEXT:
             return { ...state, newPostText: action.value ? action.value : '' }
+        case SET_USER_PROFILE:
+            return { ...state, profile: {...action.profile}}
         default:
             return state
     }
