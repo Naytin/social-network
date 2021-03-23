@@ -6,14 +6,15 @@ type PropsType = {
     profile: profileUserType | null | undefined
 }
 
+let icon = "https://image.flaticon.com/icons/png/512/147/147144.png"
+
 export const ProfileInfo = (props: PropsType) => {
     return (
         <div className={style.profileInfo}>
             <div className={style.profileInfo__wrapper}>
                 <div>
                     <img className={style.profileInfo__avatar}
-                         // src="https://image.flaticon.com/icons/png/512/147/147144.png"
-                        src={props.profile?.photos.small}
+                        src={props.profile?.photos.small ? props.profile?.photos.small : icon}
                          alt=""/>
                 </div>
             </div>

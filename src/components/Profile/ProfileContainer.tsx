@@ -3,18 +3,36 @@ import {connect} from "react-redux";
 import {Profile} from "./Profile";
 import {AppStateType} from "../../redux/store";
 import {compose} from "redux";
-import {addNewPostText, addPost, setUserProfile} from "../../redux/actionsCreator/profileAC";
-import axios from "axios";
+import {addNewPostText, addPost, getUserProfile} from "../../redux/actionsCreator/profileAC";
+import { RouteComponentProps, withRouter } from "react-router-dom";
 
-type OwnPropsType = {}
+type ParamsType = {
+    userId: string
+}
 
-class ProfileContainer extends React.Component<profilePageType & DispatchProfileType > {
+type MapStateProfileType = {
+    posts: postsType[]
+    newPostText: string
+    profile: profileUserType | null | undefined
+}
+
+export type DispatchProfileType = {
+    addPost: (value: string) => void
+    addNewPostText: (value: string) => void
+    getUserProfile: (userId: string) => void
+
+}
+
+export type OwnProfilePropsType = MapStateProfileType & DispatchProfileType
+
+type PropsType = RouteComponentProps<ParamsType> & OwnProfilePropsType
+
+class ProfileContainer extends React.Component<PropsType > {
     componentDidMount() {
-        axios.get('https://social-network.samuraijs.com/api/1.0/profile/2').then(
-            response => {
-                this.props.setUserProfile(response.data)
-            }
-        )
+        let userId = this.props.match.params.userId
+        if(userId) {
+            this.props.getUserProfile(userId)
+        }
     }
 
     render() {
@@ -24,15 +42,18 @@ class ProfileContainer extends React.Component<profilePageType & DispatchProfile
     }
 }
 
-const MapStateToProps = (state: AppStateType): profilePageType => ({
+const MapStateToProps = (state: AppStateType): MapStateProfileType => ({
     posts: state.profilePage.posts,
     newPostText: state.profilePage.newPostText,
     profile: state.profilePage.profile
 })
+
+let withRouterHOC = withRouter(ProfileContainer)
+
 export default compose(
-    connect<profilePageType, DispatchProfileType, OwnPropsType, AppStateType>
-    (MapStateToProps, {addPost, addNewPostText,setUserProfile})
-)(ProfileContainer)
+    connect<MapStateProfileType, DispatchProfileType, {}, AppStateType>
+    (MapStateToProps, {addPost, addNewPostText,getUserProfile})
+)(withRouterHOC)
 
 
 

@@ -3,7 +3,6 @@ import {addNewPostText, addPost, setUserProfile} from "../../../redux/actionsCre
 import {AppStateType} from "../../../redux/store";
 import {connect} from "react-redux";
 
-
 type OwnPropsType = {}
 
 

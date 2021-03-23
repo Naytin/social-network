@@ -1,4 +1,12 @@
-import {FOLLOW, UNFOLLOW, SET_USERS, SET_CURRENT_PAGE, SET_TOTAL_USERS, TOGGLE_IS_FETCHING} from "../actions/actions";
+import {
+    FOLLOW,
+    UNFOLLOW,
+    SET_USERS,
+    SET_CURRENT_PAGE,
+    SET_TOTAL_USERS,
+    TOGGLE_IS_FETCHING,
+    TOGGLE_IS_FOLLOWING_PROGRESS
+} from "../actions/actions";
 import {UsersActionTypes} from "../actionsCreator/usersAC";
 
 const initialState = {
@@ -10,7 +18,8 @@ const initialState = {
     pageSize: 5,
     totalUsersCount: 0,
     currentPage: 2,
-    isFetching: false
+    isFetching: false,
+    followingInProgress: []
 }
 
 
@@ -47,6 +56,14 @@ const usersReducer = (state: usersType = initialState, action: UsersActionTypes)
             return {
                 ...state,
                 isFetching: action.isFetching
+            }
+        case TOGGLE_IS_FOLLOWING_PROGRESS:
+            return {
+                ...state,
+                followingInProgress: action.isFetching
+                    ? [...state.followingInProgress, action.userId]
+                    : state.followingInProgress.filter(id => id !== action.userId)
+
             }
         default:
             return state // если ничего не изменилось, по дефолту возвращаем неизмененный стейт

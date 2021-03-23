@@ -1,3 +1,4 @@
+
 type postsType = {
     id: number,
     message: string,
@@ -6,7 +7,7 @@ type postsType = {
 type profilePageType = {
     posts: Array<postsType>,
     newPostText: string
-    profile?: profileUserType | null
+    profile?: profileUserType | null | undefined
 }
 type profileUserContacts = {
     facebook: string | null
@@ -64,7 +65,6 @@ type userType = {
     name: string
     status: string | null
     uniqueUrlName: string | null
-    // location: {city: string, country: string}
 }
 
 type usersType = {
@@ -73,6 +73,7 @@ type usersType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
+    followingInProgress: Array<number>
 }
 
 type actionType = {
@@ -89,14 +90,16 @@ type DispatchDialogsType = {
 type DispatchProfileType = {
     addPost: (value: string) => void
     addNewPostText: (value: string) => void
-    setUserProfile: (profile: profileUserType) => void
+    setUserProfile?: (profile: profileUserType) => void
 }
 
-type DispatchUsersType = {
-    follow: (uId: number) => void
-    unfollow: (uId: number) => void
-    setUsers?: (users: userType[]) => void
-    setCurrentPage?: (currentPage: number) => void
-    setTotalUsersCount?: (totalCount: number) => void
-    toggleIsFetching: (isFetching: boolean) => void
-}
+// type DispatchUsersType = {
+//     follow: (uId: number) => void
+//     unfollow: (uId: number) => void
+//     setUsers?: (users: userType[]) => void
+//     setCurrentPage?: (currentPage: number) => void
+//     setTotalUsersCount?: (totalCount: number) => void
+//     toggleIsFetching: (isFetching: boolean) => void
+//     toggleFollowingInProgress: (isFetching: boolean, userId: number) => void
+//     getUsersTC: (currentPage: number, pageSize: number) => ThunkType
+// }

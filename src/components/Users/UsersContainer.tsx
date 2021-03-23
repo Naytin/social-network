@@ -1,13 +1,16 @@
 import React from 'react'
 import {connect} from "react-redux";
 import {compose} from 'redux';
-
-
 import Users from "./Users";
-import {follow, setUsers, unfollow, setCurrentPage, setTotalUsersCount, toggleIsFetching} from "../../redux/actionsCreator/usersAC";
-import axios from 'axios';
+import {
+    setCurrentPage,
+    setTotalUsersCount,
+    toggleFollowingInProgress,
+    getUsers, follow, unfollow
+} from "../../redux/actionsCreator/usersAC";
 import {AppStateType} from '../../redux/store';
 import Preloader from "../common/Preloader/Preloader";
+
 
 // нам нужна классовая компонента, когда мы хотим взаимодействовать с обьектом. и для избежания side Effect-а. в данной
 // ситуации, для запроса на сервер
@@ -16,28 +19,34 @@ import Preloader from "../common/Preloader/Preloader";
 // или делать запросы на сервер,
 // а лиш через dispatcher отсылать action для изменения состояния.
 
-class UsersContainer extends React.Component<usersType & DispatchUsersType> {
+type CallbacksType = {
+    // follow: (uId: number) => void
+    // unfollow: (uId: number) => void
+    setCurrentPage?: (currentPage: number) => void
+    setTotalUsersCount?: (totalCount: number) => void
+    toggleFollowingInProgress: (isFetching: boolean, userId: number) => void
+    getUsers: (currentPage: number, pageSize: number) => void
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
+}
+
+class UsersContainer extends React.Component<usersType & CallbacksType> {
     //componentDidMount() вызывается сразу после монтирования (то есть, вставки компонента в DOM)
     // В этом методе должны происходить действия, которые требуют наличия DOM-узлов.
     componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
-            .then(response => {
-                this.props.toggleIsFetching(false)
-                if (this.props.setUsers) this.props.setUsers(response.data.items)
-                if (this.props.setTotalUsersCount) this.props.setTotalUsersCount(response.data.totalCount)
-            });
+        this.props.getUsers(this.props.currentPage, this.props.pageSize)
     }
-
     onPageChanged = (pageNumber: number) => {
         if (this.props.setCurrentPage) {
             this.props.setCurrentPage(pageNumber)
         }
-        this.props.toggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
-            .then(response => {
-                this.props.toggleIsFetching(false)
-                if (this.props.setUsers) this.props.setUsers(response.data.items)
-            });
+        this.props.getUsers(pageNumber, this.props.pageSize)
+    }
+    userFollow = (userId: number) => {
+        this.props.follow(userId)
+    }
+    userUnfollow = (userId: number) => {
+        this.props.unfollow(userId)
     }
 
     // объязательный метод render()
@@ -49,14 +58,17 @@ class UsersContainer extends React.Component<usersType & DispatchUsersType> {
                         totalUsersCount={this.props.totalUsersCount}
                         pageSize={this.props.pageSize}
                         currentPage={this.props.currentPage}
-                        follow={this.props.follow}
-                        unfollow={this.props.unfollow}
+                        follow={this.userFollow}
+                        unfollow={this.userUnfollow}
                         onPageChanged={this.onPageChanged}
+                        followingInProgress={this.props.followingInProgress}
                     />
                 }
             </>
         )
     }
+
+
 }
 
 const mapStateToProps = (state: AppStateType): usersType => {
@@ -65,18 +77,20 @@ const mapStateToProps = (state: AppStateType): usersType => {
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching
+        isFetching: state.usersPage.isFetching,
+        followingInProgress: state.usersPage.followingInProgress
     }
 }
 
+
 export default compose(
-    connect<usersType, DispatchUsersType, {}, AppStateType>
+    connect<usersType, CallbacksType, {}, AppStateType>
     (mapStateToProps, {
-        follow,
-        unfollow,
-        setUsers,
         setCurrentPage,
         setTotalUsersCount,
-        toggleIsFetching
+        toggleFollowingInProgress,
+        getUsers,
+        follow,
+        unfollow
     })
 )(UsersContainer)
