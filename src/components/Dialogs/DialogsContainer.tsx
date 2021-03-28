@@ -12,8 +12,7 @@ const mapStateToProps = (state: AppStateType):dialogsPageType & OwnPropsType => 
         dialogs: state.dialogsPage.dialogs,
         messages: state.dialogsPage.messages,
         newMessageText: state.dialogsPage.newMessageText,
-    }
-)
+})
 const DialogsContainer = compose(
     // types connect with help generic <>
     connect<dialogsPageType,DispatchDialogsType,OwnPropsType, AppStateType>

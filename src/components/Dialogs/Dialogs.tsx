@@ -3,14 +3,14 @@ import style from './Dialogs.module.scss'
 import {Dialog} from "./Dialog/Dialog";
 import {Messages} from "./Messages/Messages";
 
-type PropsType = dialogsPageType & {
+type PropsType = {
     addMessage: (value: string) => void
     addNewMessageText: (value: string) => void
 }
 
-export const Dialogs = ({dialogs, messages, newMessageText,addMessage,addNewMessageText}: PropsType ) => {
-    let messageBody = React.createRef<HTMLInputElement>() // create link for HTML element. and set implicit typing
+export const Dialogs = ({dialogs, messages, newMessageText,addMessage,addNewMessageText}: PropsType & dialogsPageType) => {
 
+    let messageBody = React.createRef<HTMLInputElement>() // create link for HTML element. and set implicit typing
     const onChangeMessage = () => {
         if (messageBody.current?.value) {
             let text = messageBody.current.value

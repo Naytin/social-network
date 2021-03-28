@@ -26,13 +26,13 @@ const initialState = {
 // // Reducer - это чистая функция, которая принимает старый стейт, актион
 // // если нужно модифицирует(добавляет какие-то данные) его по правилам имутабельности (работает с копией стейта и возвращает)
 // // измененную копию из этой функции. Или возвращает нетронутый стейт, если ничего не изменилось.
-const usersReducer = (state: usersType = initialState, action: UsersActionTypes):usersType => {
+const usersReducer = (state: usersType = initialState, action: UsersActionTypes): usersType => {
     switch (action.type) {
         case FOLLOW:
-                return {
-                    ...state,
-                    users: state.users.map(u => u.id === action.uId ? {...u, followed: true} : u)
-                }
+            return {
+                ...state,
+                users: state.users.map(u => u.id === action.uId ? {...u, followed: true} : u)
+            }
         // если в case нету ретурна, то необходимо делать брейк, чтобы case не проваливался дальше.
         case UNFOLLOW:
             return {
@@ -62,8 +62,7 @@ const usersReducer = (state: usersType = initialState, action: UsersActionTypes)
                 ...state,
                 followingInProgress: action.isFetching
                     ? [...state.followingInProgress, action.userId]
-                    : state.followingInProgress.filter(id => id !== action.userId)
-
+                    : [...state.followingInProgress.filter(id => id !== action.userId)]
             }
         default:
             return state // если ничего не изменилось, по дефолту возвращаем неизмененный стейт
