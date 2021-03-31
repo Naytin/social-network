@@ -9,7 +9,7 @@ let initialState = {
     login: null,
     isAuth: false
 }
-type AuthStateType = {
+export type AuthStateType = {
     id: number | null
     email: string | null
     login: string | null

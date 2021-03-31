@@ -40,6 +40,7 @@ const usersReducer = (state: usersType = initialState, action: UsersActionTypes)
                 users: state.users.map(u => u.id === action.uId ? {...u, followed: false} : u)
             }
         case SET_USERS:
+            debugger
             return {...state, users: [...action.users]}
         case SET_CURRENT_PAGE:
             return {
