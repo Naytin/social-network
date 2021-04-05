@@ -47,7 +47,8 @@ const MapStateToProps = (state: AppStateType): MapStateProfileType => ({
     newPostText: state.profilePage.newPostText,
     profile: state.profilePage.profile
 })
-
+// withRouter - позволяет получить доступ к стории(свойствам) и ближайшему Route соответствию.
+// withRouter - будет передавать обновленные match,location,history - свойства, обернутому компоненту при каждом рендере
 let withRouterHOC = withRouter(ProfileContainer)
 
 export default compose(

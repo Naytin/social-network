@@ -17,11 +17,9 @@ import Preloader from "../common/Preloader/Preloader";
 // функциональная компонента - это чистая функция, которая принимает пропсы и возвращает jsx, при этом она не может
 // никак менять состояние стейта
 // или делать запросы на сервер,
-// а лиш через dispatcher отсылать action для изменения состояния.
+// а лиш через dispatcher отправлять action для изменения состояния.
 
 type CallbacksType = {
-    // follow: (uId: number) => void
-    // unfollow: (uId: number) => void
     setCurrentPage?: (currentPage: number) => void
     setTotalUsersCount?: (totalCount: number) => void
     toggleFollowingInProgress: (isFetching: boolean, userId: number) => void
@@ -68,7 +66,6 @@ class UsersContainer extends React.Component<usersType & CallbacksType> {
         )
     }
 
-
 }
 
 const mapStateToProps = (state: AppStateType): usersType => {
@@ -81,7 +78,6 @@ const mapStateToProps = (state: AppStateType): usersType => {
         followingInProgress: state.usersPage.followingInProgress
     }
 }
-
 
 export default compose(
     connect<usersType, CallbacksType, {}, AppStateType>
