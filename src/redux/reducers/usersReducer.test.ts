@@ -74,7 +74,6 @@ beforeEach(() => {
 
 })
 
-
 test('set users should be correct',() => {
     expect(initialWithoutUsers.users.length).toBe(0)
     const endState = usersReducer(initialWithoutUsers,setUsersAC(usersData))
