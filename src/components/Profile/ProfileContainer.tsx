@@ -3,7 +3,12 @@ import {connect} from "react-redux";
 import {Profile} from "./Profile";
 import {AppStateType} from "../../redux/store";
 import {compose} from "redux";
-import {addNewPostText, addPost, getUserProfile} from "../../redux/actionsCreator/profileAC";
+import {
+    addNewPostText,
+    addPost,
+    getUserProfile,
+    getUserStatus,
+} from "../../redux/actionsCreator/profileAC";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 
 type ParamsType = {
@@ -20,7 +25,7 @@ export type DispatchProfileType = {
     addPost: (value: string) => void
     addNewPostText: (value: string) => void
     getUserProfile: (userId: string) => void
-
+    getUserStatus: (userId: string) => void
 }
 
 export type OwnProfilePropsType = MapStateProfileType & DispatchProfileType
@@ -32,12 +37,13 @@ class ProfileContainer extends React.Component<PropsType > {
         let userId = this.props.match.params.userId
         if(userId) {
             this.props.getUserProfile(userId)
+            this.props.getUserStatus(userId)
         }
     }
 
     render() {
         return (
-            <Profile profile={this.props.profile}/>
+            <Profile profile={this.props.profile} />
         )
     }
 }
@@ -45,15 +51,17 @@ class ProfileContainer extends React.Component<PropsType > {
 const MapStateToProps = (state: AppStateType): MapStateProfileType => ({
     posts: state.profilePage.posts,
     newPostText: state.profilePage.newPostText,
-    profile: state.profilePage.profile
+    profile: state.profilePage.profile,
 })
+
+
 // withRouter - позволяет получить доступ к стории(свойствам) и ближайшему Route соответствию.
 // withRouter - будет передавать обновленные match,location,history - свойства, обернутому компоненту при каждом рендере
 let withRouterHOC = withRouter(ProfileContainer)
 
 export default compose(
     connect<MapStateProfileType, DispatchProfileType, {}, AppStateType>
-    (MapStateToProps, {addPost, addNewPostText,getUserProfile})
+    (MapStateToProps, {addPost, addNewPostText,getUserProfile,getUserStatus})
 )(withRouterHOC)
 
 

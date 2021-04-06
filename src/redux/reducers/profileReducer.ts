@@ -1,4 +1,4 @@
-import {ADD_NEW_POST_TEXT, ADD_POST, SET_USER_PROFILE} from "../actions/actions";
+import {ADD_NEW_POST_TEXT, ADD_POST, SET_STATUS, SET_USER_PROFILE} from "../actions/actions";
 import {ProfileACTypes} from "../actionsCreator/profileAC";
 
 let initialState: profilePageType = {
@@ -9,8 +9,8 @@ let initialState: profilePageType = {
         { id: 4, message: 'Goodbye', likesCount: 1 },
     ],
     newPostText: 'write something',
-    profile: null
-    // status: 'Hello my friend!'
+    profile: null,
+    status: 'Hello my friend!'
 };
 
 
@@ -30,6 +30,8 @@ const profileReducer = (state: profilePageType = initialState, action: ProfileAC
             return { ...state, newPostText: action.value ? action.value : '' }
         case SET_USER_PROFILE:
             return { ...state, profile: {...action.profile}}
+        case SET_STATUS:
+            return { ...state, status: action.status}
         default:
             return state
     }

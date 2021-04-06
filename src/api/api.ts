@@ -47,14 +47,13 @@ export const profileAPI = {
     getProfile(userId: string) {
         return instance.get<profileUserType>(`profile/${userId}`)
             .then(response => response.data) },
-    getStatus(userId: number) { return instance.get(`profile/status/${userId}`)
+    getStatus(userId: string) { return instance.get<any>(`profile/status/${userId}`)
         .then(response => response.data) },
-    updateStatus(status: number) {
-        return instance.put(`profile/status`, { status: status })
-            .then(response => response.data) },
+    updateStatus(status: string) { return instance.put<any>(`profile/status/`, { status: status })
+        .then(response => response.data) },
 }
 
 export const authMe = {
-    async login() { return instance.get<CommonResponseType<AuthMeType>>('auth/me')
+     login() { return instance.get<CommonResponseType<AuthMeType>>('auth/me')
         .then(response => response.data) }
 }

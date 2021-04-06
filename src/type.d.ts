@@ -8,6 +8,7 @@ type profilePageType = {
     posts: Array<postsType>,
     newPostText: string
     profile?: profileUserType | null | undefined
+    status: string
 }
 type profileUserContacts = {
     facebook: string | null

@@ -12,6 +12,7 @@ const mapStateToProps = (state: AppStateType): profilePageType => {
     return {
         posts: state.profilePage.posts,
         newPostText: state.profilePage.newPostText,
+        status: state.profilePage.status
     }
 }
 // функция mapDispatchToProps служит для того, чтобы передавать дочерней, презентационной компоненте,

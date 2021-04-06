@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import style from "./ProfileInfo.module.scss";
 import ProfileStatus from './ProfileStatus'
 
+
 type PropsType = {
     profile: profileUserType | null | undefined
 }
@@ -29,7 +30,7 @@ export const ProfileInfo = (props: PropsType) => {
                     <Link to='Profile/Photos' className={style.profileInfo__menu_item}>Photos</Link>
                 </ul>
                 <div className={style.profileInfo__info}>San Francisco, CA</div>
-                <ProfileStatus/>
+                <ProfileStatus />
             </div>
         </div>
     )
