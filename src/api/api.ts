@@ -14,7 +14,7 @@ const instance = axios.create({
 
 type CommonResponseType<T> = {
     resultCode: number
-    message: string[]
+    messages: string[]
     data: T
     fieldsErrors: []
 }
@@ -29,6 +29,12 @@ type AuthMeType = {
     id: number
     login: string
     email: string
+}
+
+export type FormDataType = {
+    login: string
+    password: string
+    rememberMe: boolean
 }
 
 export const usersAPI = {
@@ -49,11 +55,15 @@ export const profileAPI = {
             .then(response => response.data) },
     getStatus(userId: string) { return instance.get<any>(`profile/status/${userId}`)
         .then(response => response.data) },
-    updateStatus(status: string) { return instance.put<any>(`profile/status/`, { status: status })
+    updateStatus(status: string) { return instance.put<any>(`profile/status`, { status: status })
         .then(response => response.data) },
 }
 
 export const authMe = {
-     login() { return instance.get<CommonResponseType<AuthMeType>>('auth/me')
+    auth() { return instance.get<CommonResponseType<AuthMeType>>('auth/me')
+        .then(response => response.data) },
+    login(formData: FormDataType) { return instance.post<CommonResponseType<AuthMeType>>('auth/login', formData)
+        .then(response => response.data) },
+    logOut() { return instance.delete<CommonResponseType<{}>>('auth/login')
         .then(response => response.data) }
 }

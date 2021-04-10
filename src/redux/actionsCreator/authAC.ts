@@ -1,5 +1,5 @@
 import { SET_USER_DATA} from "../actions/actions";
-import {authMe} from "../../api/api";
+import {authMe, FormDataType} from "../../api/api";
 import {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {AppStateType} from "../store";
 
@@ -10,7 +10,20 @@ type ThunkType = ThunkAction<void, AppStateType, unknown, authUserACType>
 
 export const auth = ():ThunkType => {
     return (dispatch: ThunkDispatch<AppStateType, unknown, authUserACType>) => {
-        authMe.login()
+        authMe.auth()
+            .then(data => {
+                if (data.resultCode === 0) {
+                    let { email, id, login } = data.data
+                    dispatch(setAuthUserDataAC(email, id, login))
+                }
+            })
+    }
+}
+
+export const login = (formData: FormDataType):ThunkType => {
+    return (dispatch: ThunkDispatch<AppStateType, unknown, authUserACType>) => {
+        console.log(formData)
+        authMe.login(formData)
             .then(data => {
                 if (data.resultCode === 0) {
                     let { email, id, login } = data.data

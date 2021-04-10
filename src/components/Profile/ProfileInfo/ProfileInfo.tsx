@@ -6,6 +6,9 @@ import ProfileStatus from './ProfileStatus'
 
 type PropsType = {
     profile: profileUserType | null | undefined
+    updateStatusProfile: (status: string) => void
+    status: string
+    myId: number | null
 }
 
 let icon = "https://image.flaticon.com/icons/png/512/147/147144.png"
@@ -30,7 +33,10 @@ export const ProfileInfo = (props: PropsType) => {
                     <Link to='Profile/Photos' className={style.profileInfo__menu_item}>Photos</Link>
                 </ul>
                 <div className={style.profileInfo__info}>San Francisco, CA</div>
-                <ProfileStatus />
+                <ProfileStatus updateStatusProfile={props.updateStatusProfile}
+                               status={props.status}
+                               profileStatus={props.profile}
+                />
             </div>
         </div>
     )

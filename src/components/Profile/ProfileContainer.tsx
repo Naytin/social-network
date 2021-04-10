@@ -8,6 +8,7 @@ import {
     addPost,
     getUserProfile,
     getUserStatus,
+    updateStatusProfile
 } from "../../redux/actionsCreator/profileAC";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 
@@ -19,6 +20,8 @@ type MapStateProfileType = {
     posts: postsType[]
     newPostText: string
     profile: profileUserType | null | undefined
+    status: string
+    myId: number | null
 }
 
 export type DispatchProfileType = {
@@ -26,6 +29,7 @@ export type DispatchProfileType = {
     addNewPostText: (value: string) => void
     getUserProfile: (userId: string) => void
     getUserStatus: (userId: string) => void
+    updateStatusProfile: (status: string) => void
 }
 
 export type OwnProfilePropsType = MapStateProfileType & DispatchProfileType
@@ -43,7 +47,11 @@ class ProfileContainer extends React.Component<PropsType > {
 
     render() {
         return (
-            <Profile profile={this.props.profile} />
+            <Profile profile={this.props.profile}
+                     updateStatusProfile={this.props.updateStatusProfile}
+                     status={this.props.status}
+                     myId={this.props.myId}
+            />
         )
     }
 }
@@ -52,6 +60,8 @@ const MapStateToProps = (state: AppStateType): MapStateProfileType => ({
     posts: state.profilePage.posts,
     newPostText: state.profilePage.newPostText,
     profile: state.profilePage.profile,
+    status: state.profilePage.status,
+    myId: state.auth.id
 })
 
 
@@ -61,7 +71,7 @@ let withRouterHOC = withRouter(ProfileContainer)
 
 export default compose(
     connect<MapStateProfileType, DispatchProfileType, {}, AppStateType>
-    (MapStateToProps, {addPost, addNewPostText,getUserProfile,getUserStatus})
+    (MapStateToProps, {addPost, addNewPostText,getUserProfile,getUserStatus,updateStatusProfile})
 )(withRouterHOC)
 
 

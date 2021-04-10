@@ -3,13 +3,15 @@ import profileReducer from "./reducers/profileReducer";
 import dialogsReducer from "./reducers/dialogsReducer";
 import usersReducer from "./reducers/usersReducer";
 import authReducer from "./reducers/authReducer";
+import { reducer as formReducer } from 'redux-form'
 import thunkMiddleware from 'redux-thunk'
 
 let reducers = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
     usersPage: usersReducer,
-    auth: authReducer
+    auth: authReducer,
+    form: formReducer
 })
 
 type RootReducerType = typeof reducers // with help typeof get types from reducers function

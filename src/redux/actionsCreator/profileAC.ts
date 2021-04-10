@@ -14,7 +14,6 @@ export const setStatus = (status: string): SetProfileStatus => ({type: SET_STATU
 export type ThunkType = ThunkAction<void, AppStateType, unknown, ProfileACTypes>
 
 export const getUserProfile = (userId: string): ThunkType => {
-    // замыкание, функция внутри другой фунцкии
     return (dispatch: ThunkDispatch<AppStateType, unknown, ProfileACTypes>) => {
         profileAPI.getProfile(userId)
             .then(data => dispatch(setUserProfile(data)))
@@ -22,7 +21,6 @@ export const getUserProfile = (userId: string): ThunkType => {
 }
 
 export const getUserStatus = (userId: string): ThunkType => {
-    // замыкание, функция внутри другой фунцкии
     return (dispatch: ThunkDispatch<AppStateType, unknown, ProfileACTypes>) => {
         profileAPI.getStatus(userId)
             .then(data => dispatch(setStatus(data)))
@@ -30,7 +28,6 @@ export const getUserStatus = (userId: string): ThunkType => {
 }
 
 export function updateStatusProfile(status: string): ThunkType {
-    // замыкание, функция внутри другой фунцкии
     return function (dispatch: ThunkDispatch<AppStateType, unknown, ProfileACTypes>) {
         profileAPI.updateStatus(status)
             .then(data => {if (data.resultCode === 0) dispatch(setStatus(status))})
