@@ -4,7 +4,6 @@ import {Profile} from "./Profile";
 import {AppStateType} from "../../redux/store";
 import {compose} from "redux";
 import {
-    addNewPostText,
     addPost,
     getUserProfile,
     getUserStatus,
@@ -18,7 +17,6 @@ type ParamsType = {
 
 type MapStateProfileType = {
     posts: postsType[]
-    newPostText: string
     profile: profileUserType | null | undefined
     status: string
     myId: number | null
@@ -26,7 +24,6 @@ type MapStateProfileType = {
 
 export type DispatchProfileType = {
     addPost: (value: string) => void
-    addNewPostText: (value: string) => void
     getUserProfile: (userId: string) => void
     getUserStatus: (userId: string) => void
     updateStatusProfile: (status: string) => void
@@ -58,7 +55,6 @@ class ProfileContainer extends React.Component<PropsType > {
 
 const MapStateToProps = (state: AppStateType): MapStateProfileType => ({
     posts: state.profilePage.posts,
-    newPostText: state.profilePage.newPostText,
     profile: state.profilePage.profile,
     status: state.profilePage.status,
     myId: state.auth.id
@@ -71,7 +67,7 @@ let withRouterHOC = withRouter(ProfileContainer)
 
 export default compose(
     connect<MapStateProfileType, DispatchProfileType, {}, AppStateType>
-    (MapStateToProps, {addPost, addNewPostText,getUserProfile,getUserStatus,updateStatusProfile})
+    (MapStateToProps, {addPost,getUserProfile,getUserStatus,updateStatusProfile})
 )(withRouterHOC)
 
 

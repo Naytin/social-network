@@ -1,5 +1,5 @@
 import {Posts} from "./Posts"
-import {addNewPostText, addPost, setUserProfile} from "../../../redux/actionsCreator/profileAC";
+import {addPost, setUserProfile} from "../../../redux/actionsCreator/profileAC";
 import {AppStateType} from "../../../redux/store";
 import {connect} from "react-redux";
 
@@ -11,7 +11,6 @@ type OwnPropsType = {}
 const mapStateToProps = (state: AppStateType): profilePageType => {
     return {
         posts: state.profilePage.posts,
-        newPostText: state.profilePage.newPostText,
         status: state.profilePage.status
     }
 }
@@ -23,7 +22,7 @@ const mapStateToProps = (state: AppStateType): profilePageType => {
 // а connect уже сам создаст mapDispatchToProps вложит каждый ActionCreators в dispatch
 // если в объекте имя ключ: значение совпадает, то мы пишем просто ключ.
 const PostsContainer = connect<profilePageType, DispatchProfileType, OwnPropsType, AppStateType>
-(mapStateToProps, {addNewPostText,addPost,setUserProfile})
+(mapStateToProps, {addPost,setUserProfile})
 (Posts)
 
 export default PostsContainer

@@ -1,37 +1,23 @@
-import React, {KeyboardEvent} from "react";
+import React from "react";
 import style from './Dialogs.module.scss'
 import {Dialog} from "./Dialog/Dialog";
 import {Messages} from "./Messages/Messages";
+import {Field,InjectedFormProps, reduxForm} from "redux-form";
 
 type PropsType = {
     addMessage: (value: string) => void
-    addNewMessageText: (value: string) => void
     // isAuth: boolean
 }
 
-export const Dialogs = ({dialogs, messages, newMessageText,addMessage,addNewMessageText}: PropsType & dialogsPageType) => {
-    // console.log(isAuth)
-    let messageBody = React.createRef<HTMLInputElement>() // create link for HTML element. and set implicit typing
-    const onChangeMessage = () => {
-        if (messageBody.current?.value) {
-            let text = messageBody.current.value
-            addNewMessageText(text)
-        }
-    }
 
-    const onSendMessage = () => {
-        if (messageBody.current?.value) {
-            let text = messageBody.current?.value
-            addMessage(text)
-        }
-    }
-    const onKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter') {
-            if (messageBody.current?.value) {
-                let text = messageBody.current?.value
-                addMessage(text)
-            }
-        }
+type AddMessageFormData = {
+    dialogsMessage: string
+}
+
+export const Dialogs = ({dialogs, messages,addMessage}: PropsType & dialogsPageType) => {
+
+    const onSubmit = (newMessage: AddMessageFormData) => {
+        addMessage(newMessage.dialogsMessage)
     }
     return (
         <div className={style.dialogs}>
@@ -50,19 +36,31 @@ export const Dialogs = ({dialogs, messages, newMessageText,addMessage,addNewMess
                     {messages && messages.map(m => <Messages
                         message={m.message} name={m.name} id={m.id} key={m.id}/>)}
                 </div>
-                <div className={style.input_btn__block}>
-                    <input type="text" ref={messageBody}
-                           onChange={onChangeMessage}
-                           onKeyPress={onKeyPress}
-                           value={newMessageText}/>
-                    <div className={style.icon}>
-                        <i onClick={onSendMessage}>Send</i>
-                    </div>
-                </div>
+                <AddMessageReduxForm onSubmit={onSubmit}/>
             </div>
         </div>
     )
 };
+
+const AddMessageForm: React.FC<InjectedFormProps<AddMessageFormData>>  = (props ) => {
+    return (
+        <form onSubmit={props.handleSubmit} className={style.input_btn__block}>
+            <Field component="input"
+                   name={'dialogsMessage'}
+                   type="text"
+                   />
+            <div className={style.icon}>
+                <button>Send</button>
+            </div>
+        </form>
+    )
+}
+
+//HOC reduxForm - это контейнерная компонента
+const AddMessageReduxForm = reduxForm<AddMessageFormData>({
+    // a unique name for the form
+    form: 'dialogAddMessageForm'
+})(AddMessageForm)
 
 
 export default Dialogs;

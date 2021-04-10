@@ -3,7 +3,6 @@ import {Field, InjectedFormProps, reduxForm} from 'redux-form'
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/store";
 import {login} from "../../redux/actionsCreator/authAC";
-import {HeaderPropsType} from "../Header/HeaderContainer";
 
 type FormDataType = {
     login: string
@@ -24,7 +23,6 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>>  = (props) => {
     //e.preventDefault
     // get all form data and put them to object
     // props.onSubmit(formData)
-
     return (<form onSubmit={props.handleSubmit}>
                 <div><Field component="input" name={'login'} type="text" placeholder={'Login'}/></div>
                 <div><Field component="input" name={'password'} type="text" placeholder={'Password'}/></div>

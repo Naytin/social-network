@@ -1,4 +1,4 @@
-import { ADD_MESSAGE, ADD_NEW_MESSAGE_TEXT } from "../actions/actions";
+import { ADD_MESSAGE} from "../actions/actions";
 
 const initialState: dialogsPageType = {
     dialogs: [
@@ -8,7 +8,7 @@ const initialState: dialogsPageType = {
             name: 'Sveta',
             status: {
                 title: 'Online',
-                isOnline: true
+                isOnline: false
             }
         },
         {
@@ -86,8 +86,7 @@ const initialState: dialogsPageType = {
         { id: 8, message: 'goodbye my friend', name: 'Artem' },
         { id: 9, message: 'goodbye my friend', name: 'Artem' },
         { id: 10, message: 'goodbye my friend', name: 'Artem' },
-    ],
-    newMessageText: 'I\'m Message'
+    ]
 }
 
 // // Reducer - это чистая функция, которая принимает старый стейт, актион
@@ -96,17 +95,10 @@ const initialState: dialogsPageType = {
 const dialogsReducer = (state: dialogsPageType = initialState, action: actionType): dialogsPageType => {
     switch (action.type) {
         case ADD_MESSAGE:
-            let messageText = state.newMessageText;
+            let messageText = action.value;
             return {
                 ...state,
-                newMessageText: '',
-                messages: [...state.messages, { id: 11, message: messageText, name: 'my' }]
-            }
-        // если в case нету ретурна, то необходимо делать брейк, чтобы case не проваливался дальше.
-        case ADD_NEW_MESSAGE_TEXT:
-            return {
-                ...state,
-                newMessageText: action.value ? action.value : '',
+                messages: [...state.messages, { id: 11, message: messageText ? messageText : '', name: 'my' }]
             }
         default:
             return state // если ничего не изменилось, по дефолту возвращаем неизмененный стейт

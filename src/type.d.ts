@@ -6,7 +6,6 @@ type postsType = {
 }
 type profilePageType = {
     posts: Array<postsType>,
-    newPostText: string
     profile?: profileUserType | null | undefined
     status: string
 }
@@ -52,7 +51,6 @@ type messagesType = {
 type dialogsPageType = {
     dialogs: Array<dialogsType>,
     messages: Array<messagesType>
-    newMessageText: string
 }
 interface stateType  {
     profilePage: profilePageType,
@@ -84,13 +82,10 @@ type actionType = {
 
 type DispatchDialogsType = {
     addMessage: (value: string) => void
-    addNewMessageText: (value: string) => void
-
 }
 
 type DispatchProfileType = {
     addPost: (value: string) => void
-    addNewPostText: (value: string) => void
     setUserProfile?: (profile: profileUserType) => void
 }
 

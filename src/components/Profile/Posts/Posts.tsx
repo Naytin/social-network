@@ -1,26 +1,23 @@
 import React from "react";
 import {Post} from "./Post/Post";
 import style from './Posts.module.scss'
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
 
-export const Posts = ({posts, newPostText, addPost, addNewPostText}: profilePageType & DispatchProfileType) => {
+
+type NewPostType = {
+    newPostMessage: string
+}
+
+export const Posts = ({posts, addPost}: profilePageType & DispatchProfileType) => {
     // создаем ссылку на элемент, который мы привязываем к textarea
     // Использование React.createRef() - это устаревший способ взаимодействия с элементами(BLL - логикой)
-    const getMessage = React.createRef<HTMLTextAreaElement>();
     const [modal, setModal] = React.useState(false)
 
-    const addPostText = () => {
-        let text = getMessage.current?.value // checking if getMessage has a value or undefined
-        if (text) {
-            addPost(text)
-            setModal(!modal)
-        }
+    const addPostText = (text: NewPostType) => {
+        addPost(text.newPostMessage)
+        setModal(!modal)
     }
-    const onChangePostText = () => {
-        let text = getMessage.current?.value
-        if (text) {
-            addNewPostText(text)
-        }
-    }
+
     const onModal = () => setModal(!modal)
 
     let post = posts.map((elem, i) => <Post message={elem.message}
@@ -30,9 +27,7 @@ export const Posts = ({posts, newPostText, addPost, addNewPostText}: profilePage
             <span className={style.modal__open} onClick={onModal}></span>
             {modal &&
             <div className={style.modal}>
-                    <textarea ref={getMessage} onChange={onChangePostText} value={newPostText}>
-                    </textarea>
-                <button onClick={addPostText}>Add Post</button>
+                <AddNewPost onSubmit={addPostText}/>
             </div>
             }
             <div className="post">
@@ -40,4 +35,19 @@ export const Posts = ({posts, newPostText, addPost, addNewPostText}: profilePage
             </div>
         </div>)
 }
+
+const AddNewPostForm: React.FC<InjectedFormProps<NewPostType>> = (props) => {
+    console.log(props)
+    return (
+        <form onSubmit={props.handleSubmit}>
+            <Field component='textarea' name={'newPostMessage'}/>
+            <button>Add Post</button>
+        </form>
+    )
+}
+
+
+const AddNewPost = reduxForm<NewPostType>({
+    form: 'addNewPost'
+})(AddNewPostForm)
 

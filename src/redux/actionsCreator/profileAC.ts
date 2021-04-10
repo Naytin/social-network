@@ -1,11 +1,9 @@
-import {ADD_NEW_POST_TEXT, ADD_POST, SET_STATUS, SET_USER_PROFILE} from "../actions/actions";
+import {ADD_POST, SET_STATUS, SET_USER_PROFILE} from "../actions/actions";
 import {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {AppStateType} from "../store";
 import {profileAPI} from "../../api/api";
 
 export const addPost = (value: string): AddPostACType => ({type: ADD_POST, value})
-export const addNewPostText = (value: string): AddNewPostTextACType =>
-    ({type: ADD_NEW_POST_TEXT, value})
 export const setUserProfile = (profile: profileUserType): SetUserProfileType => ({type: SET_USER_PROFILE, profile})
 export const setStatus = (status: string): SetProfileStatus => ({type: SET_STATUS, status})
 
@@ -39,11 +37,6 @@ type AddPostACType = {
     value: string
 }
 
-type AddNewPostTextACType = {
-    type: typeof ADD_NEW_POST_TEXT
-    value: string
-}
-
 type SetProfileStatus = {
     type: typeof SET_STATUS
     status: string
@@ -56,6 +49,5 @@ type SetUserProfileType = {
 
 export type ProfileACTypes =
     AddPostACType |
-    AddNewPostTextACType |
     SetUserProfileType |
     SetProfileStatus
