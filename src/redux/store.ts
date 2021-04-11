@@ -11,7 +11,7 @@ let reducers = combineReducers({
     dialogsPage: dialogsReducer,
     usersPage: usersReducer,
     auth: authReducer,
-    form: formReducer
+    form: formReducer // зосдаем ветку form и передаем formReducer из 'redux-form'
 })
 
 type RootReducerType = typeof reducers // with help typeof get types from reducers function

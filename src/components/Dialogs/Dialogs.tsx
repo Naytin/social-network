@@ -3,12 +3,13 @@ import style from './Dialogs.module.scss'
 import {Dialog} from "./Dialog/Dialog";
 import {Messages} from "./Messages/Messages";
 import {Field,InjectedFormProps, reduxForm} from "redux-form";
+import { required } from "../../utils/validators";
+import {Input} from "../common/FormsControls/FormsControls";
 
 type PropsType = {
     addMessage: (value: string) => void
     // isAuth: boolean
 }
-
 
 type AddMessageFormData = {
     dialogsMessage: string
@@ -45,8 +46,9 @@ export const Dialogs = ({dialogs, messages,addMessage}: PropsType & dialogsPageT
 const AddMessageForm: React.FC<InjectedFormProps<AddMessageFormData>>  = (props ) => {
     return (
         <form onSubmit={props.handleSubmit} className={style.input_btn__block}>
-            <Field component="input"
+            <Field component={Input}
                    name={'dialogsMessage'}
+                   validate={[required]}
                    type="text"
                    />
             <div className={style.icon}>

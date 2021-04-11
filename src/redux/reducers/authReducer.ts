@@ -1,5 +1,3 @@
-// import { authMe } from '../api/api'
-
 import {SET_USER_DATA} from "../actions/actions";
 import {authUserACType} from "../actionsCreator/authAC";
 
@@ -26,19 +24,6 @@ const authReducer = (state: AuthStateType = initialState, action: authUserACType
         default:
             return state
     }
-
 }
-
-// export const getUserAuthData = () => {
-//     return (dispatch) => {
-//         authMe.login()
-//             .then(data => {
-//                 if (data.resultCode === 0) {
-//                     let { email, id, login } = data.data
-//                     dispatch(setAuthUserData(id, email, login))
-//                 }
-//             })
-//     }
-// }
 
 export default authReducer;

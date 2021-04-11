@@ -22,7 +22,6 @@ export const auth = ():ThunkType => {
 
 export const login = (formData: FormDataType):ThunkType => {
     return (dispatch: ThunkDispatch<AppStateType, unknown, authUserACType>) => {
-        console.log(formData)
         authMe.login(formData)
             .then(data => {
                 if (data.resultCode === 0) {

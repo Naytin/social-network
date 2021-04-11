@@ -2,32 +2,56 @@ import React from "react";
 import {Post} from "./Post/Post";
 import style from './Posts.module.scss'
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {required} from "../../../utils/validators";
+import {TextArea} from "../../common/FormsControls/FormsControls";
 
 
 type NewPostType = {
     newPostMessage: string
 }
 
+// создаем компонент form и типизируем стандартным InjectedFormProps который принимает дженерик
+const AddNewPostForm: React.FC<InjectedFormProps<NewPostType>> = (props) => {
+    return (
+        //e.preventDefault
+        // get all form data and put them to object
+        // props.onSubmit(formData)
+        //по умолчанию, нам нужно передать стандартный обработчик handleSubmit, который нам попадает из ХОКа reduxForm
+        <form onSubmit={props.handleSubmit}>
+            {/* вместо тега input нужно заменять на Field component='textarea/input' name с уникальным именем н*/}
+            <Field component={TextArea}
+                   name={'newPostMessage'}
+                   validate={[required]}
+            />
+            <button>Add Post</button>
+        </form>
+    )
+}
+
+// мы должны обернуть нашу форму ХОКом reduxForm,
+const AddNewPost = reduxForm<NewPostType>({
+    // задаем уникальное имя
+    form: 'addNewPost'
+})(AddNewPostForm)
+
 export const Posts = ({posts, addPost}: profilePageType & DispatchProfileType) => {
-    // создаем ссылку на элемент, который мы привязываем к textarea
-    // Использование React.createRef() - это устаревший способ взаимодействия с элементами(BLL - логикой)
     const [modal, setModal] = React.useState(false)
 
-    const addPostText = (text: NewPostType) => {
+    const onSubmit = (text: NewPostType) => {
         addPost(text.newPostMessage)
         setModal(!modal)
     }
 
     const onModal = () => setModal(!modal)
 
-    let post = posts.map((elem, i) => <Post message={elem.message}
-                                            likesCount={elem.likesCount} id={elem.id} key={i}/>)
+    let post = posts.map((elem, i) => <Post message={elem.message} likesCount={elem.likesCount} id={elem.id} key={i}/>)
     return (
         <div className={style.posts__wrapper}>
             <span className={style.modal__open} onClick={onModal}></span>
             {modal &&
             <div className={style.modal}>
-                <AddNewPost onSubmit={addPostText}/>
+                <AddNewPost onSubmit={onSubmit}/>{/* Передаем в форму callback который под капотом
+                будет вызван как handleSubmit и нам вернется объект, с данными из формы*/}
             </div>
             }
             <div className="post">
@@ -35,19 +59,4 @@ export const Posts = ({posts, addPost}: profilePageType & DispatchProfileType) =
             </div>
         </div>)
 }
-
-const AddNewPostForm: React.FC<InjectedFormProps<NewPostType>> = (props) => {
-    console.log(props)
-    return (
-        <form onSubmit={props.handleSubmit}>
-            <Field component='textarea' name={'newPostMessage'}/>
-            <button>Add Post</button>
-        </form>
-    )
-}
-
-
-const AddNewPost = reduxForm<NewPostType>({
-    form: 'addNewPost'
-})(AddNewPostForm)
 

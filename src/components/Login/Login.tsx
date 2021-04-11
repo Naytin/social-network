@@ -3,6 +3,8 @@ import {Field, InjectedFormProps, reduxForm} from 'redux-form'
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/store";
 import {login} from "../../redux/actionsCreator/authAC";
+import {Input} from "../common/FormsControls/FormsControls";
+import {required} from "../../utils/validators";
 
 type FormDataType = {
     login: string
@@ -24,9 +26,21 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>>  = (props) => {
     // get all form data and put them to object
     // props.onSubmit(formData)
     return (<form onSubmit={props.handleSubmit}>
-                <div><Field component="input" name={'login'} type="text" placeholder={'Login'}/></div>
-                <div><Field component="input" name={'password'} type="text" placeholder={'Password'}/></div>
-                <div><Field component="input" name={'rememberMe'} type="checkbox"/></div>
+                <div><Field component={Input}
+                            name={'login'}
+                            type="text"
+                            placeholder={'Login'}
+                            validate={[required]}
+                /></div>
+                <div><Field component={Input}
+                            name={'password'}
+                            type="password"
+                            placeholder={'Password'}
+                            validate={[required]}
+                /></div>
+                <div><Field component={Input}
+                            name={'rememberMe'}
+                            type="checkbox"/></div>
                 <div>
                     <button >Login</button>
                 </div>
@@ -46,7 +60,6 @@ const Login = (props: MapDispatchToProps) => {
     const onSubmit = (formData: FormDataType) => {
         props.login(formData)
     }
-
     return (<div>
             <h1>Login</h1>
             <LoginReduxForm onSubmit={onSubmit}/>
@@ -61,5 +74,4 @@ const mapStateToProps = (state: AppStateType): MapStateToProps => ({
 
 export default connect<MapStateToProps, MapDispatchToProps, {}, AppStateType>(
     mapStateToProps, {login}
-)
-(Login)
+)(Login)
