@@ -7,7 +7,6 @@ type PropsType = {
     profile: profileUserType | null | undefined
     updateStatusProfile: (status: string) => void
     status: string
-    myId: number | null
 }
 export const Profile = (props: PropsType) => {
     return (
@@ -15,7 +14,6 @@ export const Profile = (props: PropsType) => {
             <ProfileInfo profile={props.profile}
                          updateStatusProfile={props.updateStatusProfile}
                          status={props.status}
-                         myId={props.myId}
             />
             <PostsContainer/>
         </div>

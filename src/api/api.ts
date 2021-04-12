@@ -50,10 +50,10 @@ export const usersAPI = {
 }
 
 export const profileAPI = {
-    getProfile(userId: string) {
+    getProfile(userId: number) {
         return instance.get<profileUserType>(`profile/${userId}`)
             .then(response => response.data) },
-    getStatus(userId: string) { return instance.get<any>(`profile/status/${userId}`)
+    getStatus(userId: number) { return instance.get<any>(`profile/status/${userId}`)
         .then(response => response.data) },
     updateStatus(status: string) { return instance.put<any>(`profile/status`, { status: status })
         .then(response => response.data) },
@@ -62,8 +62,8 @@ export const profileAPI = {
 export const authMe = {
     auth() { return instance.get<CommonResponseType<AuthMeType>>('auth/me')
         .then(response => response.data) },
-    login(formData: FormDataType) { return instance.post<CommonResponseType<AuthMeType>>('auth/login', formData)
+    login(formData: FormDataType) { return instance.post<CommonResponseType<AuthMeType>>('auth/login', {...formData})
         .then(response => response.data) },
-    logOut() { return instance.delete<CommonResponseType<{}>>('auth/login')
+    logout() { return instance.delete<CommonResponseType<{}>>('auth/login')
         .then(response => response.data) }
 }

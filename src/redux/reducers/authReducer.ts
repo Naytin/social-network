@@ -1,17 +1,11 @@
 import {SET_USER_DATA} from "../actions/actions";
-import {authUserACType} from "../actionsCreator/authAC";
+import {AuthStateType, authUserACType} from "../actionsCreator/authAC";
 
 let initialState = {
     id: null,
     email: null,
     login: null,
     isAuth: false
-}
-export type AuthStateType = {
-    id: number | null
-    email: string | null
-    login: string | null
-    isAuth: boolean
 }
 
 // Reducer - это чистая функция, которая принимает старый стейт, актион
@@ -20,7 +14,7 @@ export type AuthStateType = {
 const authReducer = (state: AuthStateType = initialState, action: authUserACType):AuthStateType => {
     switch (action.type) {
         case SET_USER_DATA:
-            return { ...state, ...action.payload, isAuth: true}
+            return { ...state, ...action.payload}
         default:
             return state
     }

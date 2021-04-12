@@ -8,7 +8,6 @@ type PropsType = {
     profile: profileUserType | null | undefined
     updateStatusProfile: (status: string) => void
     status: string
-    myId: number | null
 }
 
 let icon = "https://image.flaticon.com/icons/png/512/147/147144.png"
@@ -23,7 +22,6 @@ export const ProfileInfo = (props: PropsType) => {
                          alt=""/>
                 </div>
             </div>
-
             <div className={style.profileInfo__des}>
                 <ul className={style.profileInfo__menu}>
                     <Link to='Profile/About' className={style.profileInfo__menu_item}>About</Link>

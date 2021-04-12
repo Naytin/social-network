@@ -9,7 +9,7 @@ type TProps = {
 class ProfileStatus extends React.Component<TProps, any> {
     state = {
         editMode: false,
-        status: this.props.status
+        status:  this.props.status
     }
 
     componentDidMount() {
@@ -61,9 +61,14 @@ class ProfileStatus extends React.Component<TProps, any> {
         return (
             <>
                 {!this.state.editMode &&
-                    <div  onDoubleClick={this.activateEditMode.bind(this)}><span>{this.props.status || 'No status '}</span></div>}
+                    <div  onDoubleClick={this.activateEditMode.bind(this)}><span>{this.props.status || 'No status'}</span></div>}
                 {this.state.editMode && <div>
-                    <input autoFocus={true} onKeyPress={this.onKeyPress.bind(this)} onChange={this.onStatusChange.bind(this)} onBlur={this.deactivateEditMode.bind(this)} type="text" value={this.state.status }/>
+                    <input autoFocus={true}
+                           onKeyPress={this.onKeyPress.bind(this)}
+                           onChange={this.onStatusChange.bind(this)}
+                           onBlur={this.deactivateEditMode.bind(this)}
+                           type="text"
+                           value={this.state.status}/>
                 </div>}
             </>
         )

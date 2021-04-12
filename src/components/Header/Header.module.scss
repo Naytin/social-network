@@ -15,4 +15,10 @@
       color: #fff;
     }
   }
+  .logout {
+    color: #fff;
+    &:hover {
+      cursor: pointer;
+    }
+  }
 }

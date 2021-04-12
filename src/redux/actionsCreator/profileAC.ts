@@ -7,19 +7,18 @@ export const addPost = (value: string): AddPostACType => ({type: ADD_POST, value
 export const setUserProfile = (profile: profileUserType): SetUserProfileType => ({type: SET_USER_PROFILE, profile})
 export const setStatus = (status: string): SetProfileStatus => ({type: SET_STATUS, status})
 
-
-
 export type ThunkType = ThunkAction<void, AppStateType, unknown, ProfileACTypes>
 
-export const getUserProfile = (userId: string): ThunkType => {
+export const getUserProfile = (userId: number): ThunkType => {
     return (dispatch: ThunkDispatch<AppStateType, unknown, ProfileACTypes>) => {
         profileAPI.getProfile(userId)
             .then(data => dispatch(setUserProfile(data)))
     }
 }
 
-export const getUserStatus = (userId: string): ThunkType => {
+export const getUserStatus = (userId: number): ThunkType => {
     return (dispatch: ThunkDispatch<AppStateType, unknown, ProfileACTypes>) => {
+        console.log(userId)
         profileAPI.getStatus(userId)
             .then(data => dispatch(setStatus(data)))
     }
