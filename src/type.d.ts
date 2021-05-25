@@ -67,6 +67,7 @@ type userType = {
 }
 
 type usersType = {
+    filter: string
     users: userType[]
     pageSize: number
     totalUsersCount: number
@@ -88,14 +89,3 @@ type DispatchProfileType = {
     addPost: (value: string) => void
     setUserProfile?: (profile: profileUserType) => void
 }
-
-// type DispatchUsersType = {
-//     follow: (uId: number) => void
-//     unfollow: (uId: number) => void
-//     setUsers?: (users: userType[]) => void
-//     setCurrentPage?: (currentPage: number) => void
-//     setTotalUsersCount?: (totalCount: number) => void
-//     toggleIsFetching: (isFetching: boolean) => void
-//     toggleFollowingInProgress: (isFetching: boolean, userId: number) => void
-//     getUsersTC: (currentPage: number, pageSize: number) => ThunkType
-// }

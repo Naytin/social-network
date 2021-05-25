@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {ChangeEvent, useState} from 'react'
 import {NavLink} from 'react-router-dom'
 import s from './Users.module.scss'
 
@@ -10,27 +10,35 @@ import s from './Users.module.scss'
 const defaultAvatar =
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSq_I0JFO2DxoAV3J-sI7ajtx0qW0Q5neaY_A&usqp=CAU'
 
-type propsType = {
-    users: userType[]
-    pageSize: number
-    totalUsersCount: number
-    currentPage: number
-    onPageChanged: (value: number) => void
-    follow: (uId: number) => void
-    unfollow: (uId: number) => void
-    followingInProgress: Array<number>
-}
-
 const Users = (props: propsType) => {
+
+    const [value, setValue] = useState<string>()
     const pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
-    let pages = [];
+    let pages: Array<number> = [];
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i)
     }
+
+    let timeoutId:NodeJS.Timeout
+    const onSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
+        let currentValue = e.currentTarget.value
+        setValue(currentValue)
+        clearTimeout(timeoutId)
+        timeoutId = setTimeout(() => {
+            props.setFilter(currentValue)
+        }, 500)
+    }
+
     return <div>
         <div className={s.pagination}>
-            {pages.map(p => <span onClick={() => props.onPageChanged(p)}
-                                  className={props.currentPage === p ? s.selected : ''} key={p}>{p}</span>)}
+            <div>
+                <input type="search" value={value} onChange={onSearchChange}/>
+                {!props.users.length && <div>Users not found</div>}
+            </div>
+            <div>
+                {pages.map(p => <span onClick={() => props.onPageChanged(p)}
+                                      className={props.currentPage === p ? s.selected : ''} key={p}>{p}</span>)}
+            </div>
         </div>
         {
             props.users.map(u => <div key={u.id}>
@@ -61,3 +69,17 @@ const Users = (props: propsType) => {
     </div>
 }
 export default Users
+
+//types
+type propsType = {
+    users: userType[]
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
+    onPageChanged: (value: number) => void
+    follow: (uId: number) => void
+    unfollow: (uId: number) => void
+    followingInProgress: Array<number>
+    setFilter: (value: string) => void
+    filter: string
+}

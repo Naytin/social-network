@@ -10,6 +10,7 @@ import {
 import {UsersActionTypes} from "../actionsCreator/usersAC";
 
 const initialState = {
+    filter: '',
     users: [
         // {id: 1, avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSq_I0JFO2DxoAV3J-sI7ajtx0qW0Q5neaY_A&usqp=CAU', followed: false, fullName: 'Vova', status: 'Status', location: {city: 'Chernihiv', country: 'Ukraine'} },
         // {id: 2, avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSq_I0JFO2DxoAV3J-sI7ajtx0qW0Q5neaY_A&usqp=CAU', followed: true, fullName: 'Sveta', status: 'Status', location: {city: 'Chernihiv', country: 'Ukraine'} },
@@ -63,6 +64,11 @@ const usersReducer = (state: usersType = initialState, action: UsersActionTypes)
                 followingInProgress: action.isFetching
                     ? [...state.followingInProgress, action.userId]
                     : [...state.followingInProgress.filter(id => id !== action.userId)]
+            }
+        case 'SET_FILTER':
+            return {
+                ...state,
+                filter: action.filter
             }
         default:
             return state // если ничего не изменилось, по дефолту возвращаем неизмененный стейт

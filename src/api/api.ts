@@ -8,34 +8,9 @@ const instance = axios.create({
     withCredentials: true,
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
     headers: {
-        'API-KEY': '2e7cae24-6e87-458f-8c5f-7361562c8207'
+        'API-KEY': 'a409a2ec-60ad-4ff6-9051-8f6025edc2fd'
     }
 })
-
-type CommonResponseType<T> = {
-    resultCode: number
-    messages: string[]
-    data: T
-    fieldsErrors: []
-}
-
-type GetUsersType = {
-    error: string | null
-    items: userType[]
-    totalCount: number
-}
-
-type AuthMeType = {
-    id: number
-    login: string
-    email: string
-}
-
-export type FormDataType = {
-    login: string
-    password: string
-    rememberMe: boolean
-}
 
 export const usersAPI = {
     getUsers(currentPage: number, pageSize: number){
@@ -53,9 +28,11 @@ export const profileAPI = {
     getProfile(userId: number) {
         return instance.get<profileUserType>(`profile/${userId}`)
             .then(response => response.data) },
-    getStatus(userId: number) { return instance.get<any>(`profile/status/${userId}`)
+    getStatus(userId: number) {
+        return instance.get<any>(`profile/status/${userId}`)
         .then(response => response.data) },
-    updateStatus(status: string) { return instance.put<any>(`profile/status`, { status: status })
+    updateStatus(status: string) {
+        return instance.put<any>(`profile/status`, { status: status })
         .then(response => response.data) },
 }
 
@@ -66,4 +43,30 @@ export const authMe = {
         .then(response => response.data) },
     logout() { return instance.delete<CommonResponseType<{}>>('auth/login')
         .then(response => response.data) }
+}
+
+// types
+type CommonResponseType<T> = {
+    resultCode: number
+    messages: string[]
+    data: T
+    fieldsErrors: []
+}
+
+type GetUsersType = {
+    error: string | null
+    items: userType[]
+    totalCount: number
+}
+
+export type AuthMeType = {
+    id: number
+    login: string
+    email: string
+}
+
+export type FormDataType = {
+    login: string
+    password: string
+    rememberMe: boolean
 }

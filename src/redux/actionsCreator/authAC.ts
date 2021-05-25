@@ -1,17 +1,17 @@
 import { SET_USER_DATA} from "../actions/actions";
 import {authMe, FormDataType} from "../../api/api";
-import {ThunkAction, ThunkDispatch} from "redux-thunk";
+import {ThunkAction} from "redux-thunk";
 import {AppStateType} from "../store";
 import {stopSubmit} from "redux-form";
 
+// actions
 export const setAuthUserDataAC = ({email,id,login,isAuth}:AuthStateType):authUserACType =>
     ({ type: SET_USER_DATA, payload: {email, id,  login, isAuth} })
 
-type ThunkType = ThunkAction<void, AppStateType, unknown, authUserACType>
-
+// thunks
 export const auth = ():ThunkType => {
-    return (dispatch: ThunkDispatch<AppStateType, unknown, authUserACType>) => {
-        authMe.auth()
+    return (dispatch) => {
+        return authMe.auth()
             .then(data => {
                 if (data.resultCode === 0) {
                     let { email, id, login } = data.data
@@ -23,7 +23,7 @@ export const auth = ():ThunkType => {
 }
 
 export const login = (formData: FormDataType):ThunkType => {
-    return (dispatch: ThunkDispatch<AppStateType, unknown, authUserACType>) => {
+    return (dispatch) => {
         authMe.login(formData)
             .then(data => {
                 if (data.resultCode === 0) {
@@ -38,7 +38,7 @@ export const login = (formData: FormDataType):ThunkType => {
 }
 
 export const logout = ():ThunkType => {
-    return (dispatch: ThunkDispatch<AppStateType, unknown, authUserACType>) => {
+    return (dispatch) => {
         authMe.logout()
             .then(data => {
                 if (data.resultCode === 0) {
@@ -52,6 +52,8 @@ export const logout = ():ThunkType => {
     }
 }
 
+// types
+type ThunkType = ThunkAction<void, AppStateType, unknown, authUserACType>
 export type AuthStateType = {
     id: number | null
     email: string | null

@@ -8,7 +8,6 @@ import {Input} from "../common/FormsControls/FormsControls";
 
 type PropsType = {
     addMessage: (value: string) => void
-    // isAuth: boolean
 }
 
 type AddMessageFormData = {

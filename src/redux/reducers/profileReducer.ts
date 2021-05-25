@@ -9,10 +9,10 @@ let initialState: profilePageType = {
         { id: 4, message: 'Goodbye', likesCount: 1 },
     ],
     profile: null,
-    status: 'Hello'
+    status: ''
 };
 
-// Reducer - это чистая функция, которая принимает старый стейт, актион
+// Reducer - это чистая функция, которая принимает стейт, актион
 // если нужно модифицирует(добавляет какие-то данные) его по правилам имутабельности (работает с копией стейта и возвращает)
 // измененную копию из этой функции. Или возвращает нетронутый стейт, если ничего не изменилось.
 const profileReducer = (state: profilePageType = initialState, action: ProfileACTypes): profilePageType => {

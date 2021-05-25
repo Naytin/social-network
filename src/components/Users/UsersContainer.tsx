@@ -6,10 +6,16 @@ import {
     setCurrentPage,
     setTotalUsersCount,
     toggleFollowingInProgress,
-    getUsers, follow, unfollow
+    usersRequest, follow, unfollow, setFilter
 } from "../../redux/actionsCreator/usersAC";
 import {AppStateType} from '../../redux/store';
 import Preloader from "../common/Preloader/Preloader";
+import {
+    getCurrentPage, getFilteredUsers, getFollowingInProgress,
+    getIsFetching,
+    getPageSize,
+    getTotalUsersCount,
+} from "../../redux/reducers/users-selector";
 
 
 // нам нужна классовая компонента, когда мы хотим взаимодействовать с обьектом. и для избежания side Effect-а. в данной
@@ -19,26 +25,17 @@ import Preloader from "../common/Preloader/Preloader";
 // или делать запросы на сервер,
 // а лиш через dispatcher отправлять action для изменения состояния.
 
-type CallbacksType = {
-    setCurrentPage?: (currentPage: number) => void
-    setTotalUsersCount?: (totalCount: number) => void
-    toggleFollowingInProgress: (isFetching: boolean, userId: number) => void
-    getUsers: (currentPage: number, pageSize: number) => void
-    follow: (userId: number) => void
-    unfollow: (userId: number) => void
-}
-
 class UsersContainer extends React.Component<usersType & CallbacksType> {
     //componentDidMount() вызывается сразу после монтирования (то есть, вставки компонента в DOM)
     // В этом методе должны происходить действия, которые требуют наличия DOM-узлов.
     componentDidMount() {
-        this.props.getUsers(this.props.currentPage, this.props.pageSize)
+        this.props.usersRequest(this.props.currentPage, this.props.pageSize)
     }
     onPageChanged = (pageNumber: number) => {
         if (this.props.setCurrentPage) {
             this.props.setCurrentPage(pageNumber)
         }
-        this.props.getUsers(pageNumber, this.props.pageSize)
+        this.props.usersRequest(pageNumber, this.props.pageSize)
     }
     userFollow = (userId: number) => {
         this.props.follow(userId)
@@ -49,7 +46,9 @@ class UsersContainer extends React.Component<usersType & CallbacksType> {
 
     // объязательный метод render()
     render() {
+        console.log('users')
         return (<>
+
                 {this.props.isFetching ? <Preloader/> :
                     <Users
                         users={this.props.users}
@@ -60,6 +59,8 @@ class UsersContainer extends React.Component<usersType & CallbacksType> {
                         unfollow={this.userUnfollow}
                         onPageChanged={this.onPageChanged}
                         followingInProgress={this.props.followingInProgress}
+                        setFilter={this.props.setFilter}
+                        filter={this.props.filter}
                     />
                 }
             </>
@@ -69,13 +70,15 @@ class UsersContainer extends React.Component<usersType & CallbacksType> {
 }
 
 const mapStateToProps = (state: AppStateType): usersType => {
+    console.log('mapStateToProps users')
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        followingInProgress: state.usersPage.followingInProgress
+        filter: state.usersPage.filter,
+        users: getFilteredUsers(state),
+        pageSize: getPageSize(state),
+        totalUsersCount: getTotalUsersCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        followingInProgress: getFollowingInProgress(state)
     }
 }
 
@@ -85,8 +88,20 @@ export default compose(
         setCurrentPage,
         setTotalUsersCount,
         toggleFollowingInProgress,
-        getUsers,
+        usersRequest,
         follow,
-        unfollow
+        unfollow,
+        setFilter
     })
 )(UsersContainer)
+
+// types
+type CallbacksType = {
+    setCurrentPage?: (currentPage: number) => void
+    setTotalUsersCount?: (totalCount: number) => void
+    toggleFollowingInProgress: (isFetching: boolean, userId: number) => void
+    usersRequest: (currentPage: number, pageSize: number) => void
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
+    setFilter: (filter: string) => void
+}

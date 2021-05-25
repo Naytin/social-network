@@ -1,12 +1,6 @@
 import React, {ChangeEvent, KeyboardEvent} from 'react'
 
-type TProps = {
-    updateStatusProfile: (status: string) => void
-    status: string
-    profileStatus: profileUserType | null | undefined
-}
-
-class ProfileStatus extends React.Component<TProps, any> {
+class ProfileStatus extends React.Component<PropsType, StateType> {
     state = {
         editMode: false,
         status:  this.props.status
@@ -17,7 +11,7 @@ class ProfileStatus extends React.Component<TProps, any> {
     }
 
     activateEditMode() {
-        if(!this.props.profileStatus) {
+        if(this.props.profileStatus?.userId === 13139) {
             this.setState({
                 editMode: true
             })
@@ -48,7 +42,7 @@ class ProfileStatus extends React.Component<TProps, any> {
     }
     // componentDidUpdate - позволяет перерисовать компонент, при изменении локального стейта
     // получает prevProps и prevState который мы можем проверить на изменение.
-    componentDidUpdate(prevProps: Readonly<TProps>, prevState: Readonly<{}>, snapshot?: any) {
+    componentDidUpdate(prevProps: PropsType, prevState: StateType) {
         // setState дольжен вызываться внутри условия, иначе будет бесконечная перерисовка
         if(prevProps.status !== this.props.status) {
             this.setState({
@@ -73,6 +67,18 @@ class ProfileStatus extends React.Component<TProps, any> {
             </>
         )
     }
+}
+
+// types
+type PropsType = {
+    updateStatusProfile: (status: string) => void
+    status: string
+    profileStatus: profileUserType | null | undefined
+}
+
+type StateType = {
+    editMode: boolean
+    status:  string
 }
 
 export default ProfileStatus

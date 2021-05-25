@@ -5,11 +5,6 @@ import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {required} from "../../../utils/validators";
 import {TextArea} from "../../common/FormsControls/FormsControls";
 
-
-type NewPostType = {
-    newPostMessage: string
-}
-
 // создаем компонент form и типизируем стандартным InjectedFormProps который принимает дженерик
 const AddNewPostForm: React.FC<InjectedFormProps<NewPostType>> = (props) => {
     return (
@@ -58,5 +53,10 @@ export const Posts = ({posts, addPost}: profilePageType & DispatchProfileType) =
                 {post}
             </div>
         </div>)
+}
+
+// types
+type NewPostType = {
+    newPostMessage: string
 }
 

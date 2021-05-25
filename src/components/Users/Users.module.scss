@@ -1,5 +1,7 @@
 .pagination {
     margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
     text-align: center;
     span {
         cursor: pointer;

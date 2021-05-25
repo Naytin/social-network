@@ -19,7 +19,6 @@ export const MessageItemMy = ({name, message, id}: messagesType) => {
     )
 }
 
-
 export const MessageItem = ({name, message, id}: messagesType) => {
     return (
         <div className={style.messagesSubscriber}>

@@ -5,24 +5,26 @@ import usersReducer from "./reducers/usersReducer";
 import authReducer from "./reducers/authReducer";
 import { reducer as formReducer } from 'redux-form'
 import thunkMiddleware from 'redux-thunk'
+import appReducer from "./reducers/appReducer";
 
 let reducers = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
     usersPage: usersReducer,
     auth: authReducer,
-    form: formReducer // зосдаем ветку form и передаем formReducer из 'redux-form'
+    form: formReducer, // зосдаем ветку form и передаем formReducer из 'redux-form'
+    app: appReducer
 })
 
-type RootReducerType = typeof reducers // with help typeof get types from reducers function
+type RootReducerType = typeof reducers // (globalstate: AppStateType) => AppStateType
 
-export type AppStateType = ReturnType<RootReducerType> // получаем тип для всего стейта при помощи функции ReturnType из RootReducerType
+export type AppStateType = ReturnType<RootReducerType> // get type for all state with helps ReturnType from RootReducerType
 
 //for redux-devtool
 // @ts-ignore
-const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
+const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose
 const store = createStore(reducers,composeEnhancers(applyMiddleware(thunkMiddleware)))
 
 // @ts-ignore
 window.__store__ = store
-export default store;
+export default store

@@ -1,6 +1,6 @@
-import React from "react";
+import React, {Suspense} from "react";
 import {connect} from "react-redux";
-import {Profile} from "./Profile";
+// import Test from "./Test";
 import {AppStateType} from "../../redux/store";
 import {compose} from "redux";
 import {
@@ -10,28 +10,9 @@ import {
     updateStatusProfile
 } from "../../redux/actionsCreator/profileAC";
 import {RouteComponentProps, withRouter} from "react-router-dom";
+import Preloader from "../common/Preloader/Preloader";
 
-type ParamsType = {
-    userId: string
-}
-
-type MapStateProfileType = {
-    posts: postsType[]
-    profile: profileUserType | null | undefined
-    status: string
-    userId: number | null
-}
-
-export type DispatchProfileType = {
-    addPost: (value: string) => void
-    getUserProfile: (userId: number) => void
-    getUserStatus: (userId: number) => void
-    updateStatusProfile: (status: string) => void
-}
-
-export type OwnProfilePropsType = MapStateProfileType & DispatchProfileType
-
-type PropsType = RouteComponentProps<ParamsType> & OwnProfilePropsType
+const Profile = React.lazy(() => import('./Profile')); // Ленивая загрузка
 
 class ProfileContainer extends React.Component<PropsType> {
     componentDidMount() {
@@ -39,6 +20,7 @@ class ProfileContainer extends React.Component<PropsType> {
         let userId = +this.props.match.params.userId
         if (!userId) {
             if(this.props.userId !== null) userId = this.props.userId
+            if(!userId) this.props.history.push('/login')
         }
         this.props.getUserProfile(userId)
         this.props.getUserStatus(userId)
@@ -55,10 +37,14 @@ class ProfileContainer extends React.Component<PropsType> {
 
     render() {
         return (
-            <Profile profile={this.props.profile}
-                     updateStatusProfile={this.props.updateStatusProfile}
-                     status={this.props.status}
-            />
+            // Suspense - Delay in receiving data. show Preloader at boot time
+            <Suspense fallback={<Preloader/>}>
+                <Profile profile={this.props.profile}
+                         updateStatusProfile={this.props.updateStatusProfile}
+                         status={this.props.status}
+                />
+            </Suspense>
+
         )
     }
 }
@@ -80,5 +66,23 @@ export default compose(
     (MapStateToProps, {addPost, getUserProfile, getUserStatus, updateStatusProfile})
 )(withRouterHOC)
 
+// types
+type ParamsType = {
+    userId: string
+}
+type MapStateProfileType = {
+    posts: postsType[]
+    profile: profileUserType | null | undefined
+    status: string
+    userId: number | null
+}
+export type DispatchProfileType = {
+    addPost: (value: string) => void
+    getUserProfile: (userId: number) => void
+    getUserStatus: (userId: number) => void
+    updateStatusProfile: (status: string) => void
+}
+export type OwnProfilePropsType = MapStateProfileType & DispatchProfileType
+type PropsType = RouteComponentProps<ParamsType> & OwnProfilePropsType
 
 

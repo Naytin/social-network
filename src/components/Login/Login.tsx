@@ -7,21 +7,6 @@ import {Input} from "../common/FormsControls/FormsControls";
 import {required} from "../../utils/validators";
 import {Redirect} from "react-router-dom";
 
-type FormDataType = {
-    login: string
-    password: string
-    rememberMe: boolean
-}
-
-type MapStateToProps = {
-    isAuth: boolean
-}
-
-type MapDispatchToProps = {
-    login: (formData: FormDataType) => void
-}
-
-
 const LoginForm: React.FC<InjectedFormProps<FormDataType>>  = (props) => {
     //e.preventDefault
     // get all form data and put them to object
@@ -79,6 +64,19 @@ const Login = (props: MapDispatchToProps & MapStateToProps) => {
 const mapStateToProps = (state: AppStateType): MapStateToProps => ({
     isAuth: state.auth.isAuth
 })
+
+// types
+type FormDataType = {
+    login: string
+    password: string
+    rememberMe: boolean
+}
+type MapStateToProps = {
+    isAuth: boolean
+}
+type MapDispatchToProps = {
+    login: (formData: FormDataType) => void
+}
 
 export default connect<MapStateToProps, MapDispatchToProps, {}, AppStateType>(
     mapStateToProps, {login}

@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import style from "./ProfileInfo.module.scss";
 import ProfileStatus from './ProfileStatus'
+import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 
 
 type PropsType = {
@@ -24,17 +25,20 @@ export const ProfileInfo = (props: PropsType) => {
             </div>
             <div className={style.profileInfo__des}>
                 <ul className={style.profileInfo__menu}>
-                    <Link to='Profile/About' className={style.profileInfo__menu_item}>About</Link>
-                    <Link to='Profile/Friends' className={style.profileInfo__menu_item}>Friends</Link>
+                    <Link to='Test/About' className={style.profileInfo__menu_item}>About</Link>
+                    <Link to='Test/Friends' className={style.profileInfo__menu_item}>Friends</Link>
                     <h6 className={style.profileInfo__title}>{props.profile?.fullName}</h6>
                     <Link to='/Settings' className={style.profileInfo__menu_item}>Settings</Link>
-                    <Link to='Profile/Photos' className={style.profileInfo__menu_item}>Photos</Link>
+                    <Link to='Test/Photos' className={style.profileInfo__menu_item}>Photos</Link>
                 </ul>
                 <div className={style.profileInfo__info}>San Francisco, CA</div>
-                <ProfileStatus updateStatusProfile={props.updateStatusProfile}
-                               status={props.status}
-                               profileStatus={props.profile}
-                />
+                <ProfileStatusWithHooks updateStatusProfile={props.updateStatusProfile}
+                              status={props.status}
+                             profileStatus={props.profile} />
+                {/*<ProfileStatus updateStatusProfile={props.updateStatusProfile}*/}
+                {/*               status={props.status}*/}
+                {/*               profileStatus={props.profile}*/}
+                {/*/>*/}
             </div>
         </div>
     )
