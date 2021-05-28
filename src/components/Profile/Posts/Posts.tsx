@@ -6,7 +6,7 @@ import {required} from "../../../utils/validators";
 import {TextArea} from "../../common/FormsControls/FormsControls";
 
 // создаем компонент form и типизируем стандартным InjectedFormProps который принимает дженерик
-const AddNewPostForm: React.FC<InjectedFormProps<NewPostType>> = (props) => {
+const AddNewPostForm: React.FC<InjectedFormProps<NewPostType>> = React.memo((props) => {
     return (
         //e.preventDefault
         // get all form data and put them to object
@@ -21,7 +21,7 @@ const AddNewPostForm: React.FC<InjectedFormProps<NewPostType>> = (props) => {
             <button>Add Post</button>
         </form>
     )
-}
+})
 
 // мы должны обернуть нашу форму ХОКом reduxForm,
 const AddNewPost = reduxForm<NewPostType>({
@@ -29,15 +29,15 @@ const AddNewPost = reduxForm<NewPostType>({
     form: 'addNewPost'
 })(AddNewPostForm)
 
-export const Posts = ({posts, addPost}: profilePageType & DispatchProfileType) => {
+export const Posts = React.memo(({posts, addPost}: profilePageType & DispatchProfileType) => {
     const [modal, setModal] = React.useState(false)
-
     const onSubmit = (text: NewPostType) => {
         addPost(text.newPostMessage)
         setModal(!modal)
     }
 
     const onModal = () => setModal(!modal)
+
 
     let post = posts.map((elem, i) => <Post message={elem.message} likesCount={elem.likesCount} id={elem.id} key={i}/>)
     return (
@@ -53,7 +53,7 @@ export const Posts = ({posts, addPost}: profilePageType & DispatchProfileType) =
                 {post}
             </div>
         </div>)
-}
+})
 
 // types
 type NewPostType = {

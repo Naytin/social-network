@@ -28,6 +28,7 @@ import {
 class UsersContainer extends React.Component<usersType & CallbacksType> {
     //componentDidMount() вызывается сразу после монтирования (то есть, вставки компонента в DOM)
     // В этом методе должны происходить действия, которые требуют наличия DOM-узлов.
+
     componentDidMount() {
         this.props.usersRequest(this.props.currentPage, this.props.pageSize)
     }
@@ -44,11 +45,8 @@ class UsersContainer extends React.Component<usersType & CallbacksType> {
         this.props.unfollow(userId)
     }
 
-    // объязательный метод render()
     render() {
-        console.log('users')
         return (<>
-
                 {this.props.isFetching ? <Preloader/> :
                     <Users
                         users={this.props.users}
@@ -70,7 +68,6 @@ class UsersContainer extends React.Component<usersType & CallbacksType> {
 }
 
 const mapStateToProps = (state: AppStateType): usersType => {
-    console.log('mapStateToProps users')
     return {
         filter: state.usersPage.filter,
         users: getFilteredUsers(state),

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import style from "./ProfileInfo.module.scss";
-import ProfileStatus from './ProfileStatus'
+// import ProfileStatus from './ProfileStatus'
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 
 
@@ -13,7 +13,7 @@ type PropsType = {
 
 let icon = "https://image.flaticon.com/icons/png/512/147/147144.png"
 
-export const ProfileInfo = (props: PropsType) => {
+export const ProfileInfo = React.memo((props: PropsType) => {
     return (
         <div className={style.profileInfo}>
             <div className={style.profileInfo__wrapper}>
@@ -42,4 +42,4 @@ export const ProfileInfo = (props: PropsType) => {
             </div>
         </div>
     )
-}
+})

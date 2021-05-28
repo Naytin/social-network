@@ -14,7 +14,7 @@ type AddMessageFormData = {
     dialogsMessage: string
 }
 
-export const Dialogs = ({dialogs, messages,addMessage}: PropsType & dialogsPageType) => {
+export const Dialogs = React.memo(({dialogs, messages,addMessage}: PropsType & dialogsPageType) => {
 
     const onSubmit = (newMessage: AddMessageFormData) => {
         addMessage(newMessage.dialogsMessage)
@@ -40,9 +40,9 @@ export const Dialogs = ({dialogs, messages,addMessage}: PropsType & dialogsPageT
             </div>
         </div>
     )
-};
+});
 
-const AddMessageForm: React.FC<InjectedFormProps<AddMessageFormData>>  = (props ) => {
+const AddMessageForm: React.FC<InjectedFormProps<AddMessageFormData>>  = React.memo((props ) => {
     return (
         <form onSubmit={props.handleSubmit} className={style.input_btn__block}>
             <Field component={Input}
@@ -55,7 +55,7 @@ const AddMessageForm: React.FC<InjectedFormProps<AddMessageFormData>>  = (props 
             </div>
         </form>
     )
-}
+})
 
 //HOC reduxForm - это контейнерная компонента
 const AddMessageReduxForm = reduxForm<AddMessageFormData>({

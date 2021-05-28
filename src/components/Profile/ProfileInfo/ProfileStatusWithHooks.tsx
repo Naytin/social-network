@@ -1,6 +1,6 @@
 import React, {ChangeEvent, KeyboardEvent, useEffect} from 'react'
 
-const ProfileStatusWithHooks: React.FC<PropsType> = (props) => {
+const ProfileStatusWithHooks: React.FC<PropsType> = React.memo((props) => {
     const [status, setStatus] = React.useState(props.status)
     const [editMode, setEditMode] = React.useState(false)
 
@@ -46,7 +46,7 @@ const ProfileStatusWithHooks: React.FC<PropsType> = (props) => {
             </div>}
         </>
     )
-}
+})
 
 // types
 type PropsType = {

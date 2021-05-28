@@ -15,6 +15,7 @@ import Preloader from "../common/Preloader/Preloader";
 const Profile = React.lazy(() => import('./Profile')); // Ленивая загрузка
 
 class ProfileContainer extends React.Component<PropsType> {
+
     componentDidMount() {
         // get match params - userId from browser
         let userId = +this.props.match.params.userId

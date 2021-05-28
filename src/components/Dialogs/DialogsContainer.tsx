@@ -6,11 +6,7 @@ import {compose, Dispatch} from 'redux';
 import { AppStateType } from '../../redux/store';
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
-type OwnPropsType = {
-
-}
-
-const mapStateToProps = (state: AppStateType):dialogsPageType & OwnPropsType => ({
+const mapStateToProps = (state: AppStateType):dialogsPageType & {} => ({
         dialogs: state.dialogsPage.dialogs,
         messages: state.dialogsPage.messages
 })
@@ -28,7 +24,7 @@ const mapDispatchToProps = (dispatch: Dispatch):DispatchDialogsType => {
 // types connect with help generic <>
 // <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = DefaultState>
 const DialogsContainer = compose<React.ComponentType>(
-    connect<dialogsPageType,DispatchDialogsType,OwnPropsType, AppStateType>
+    connect<dialogsPageType,DispatchDialogsType,{}, AppStateType>
     (mapStateToProps, mapDispatchToProps),
     withAuthRedirect,
 )(Dialogs)

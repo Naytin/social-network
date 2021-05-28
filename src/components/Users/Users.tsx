@@ -10,8 +10,7 @@ import s from './Users.module.scss'
 const defaultAvatar =
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSq_I0JFO2DxoAV3J-sI7ajtx0qW0Q5neaY_A&usqp=CAU'
 
-const Users = (props: propsType) => {
-
+const Users = React.memo((props: propsType) => {
     const [value, setValue] = useState<string>()
     const pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
     let pages: Array<number> = [];
@@ -28,7 +27,6 @@ const Users = (props: propsType) => {
             props.setFilter(currentValue)
         }, 500)
     }
-
     return <div>
         <div className={s.pagination}>
             <div>
@@ -67,7 +65,7 @@ const Users = (props: propsType) => {
             </div>)
         }
     </div>
-}
+})
 export default Users
 
 //types

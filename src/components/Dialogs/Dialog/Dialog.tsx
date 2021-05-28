@@ -12,7 +12,7 @@ type dialogType = {
     id: number
     status: statusType,
 }
-export const Dialog = ({data, id, status}: dialogType) => {
+export const Dialog = React.memo(({data, id, status}: dialogType) => {
     let path = `/dialogs/${id}`
     return (
         <Link to={path}>
@@ -29,4 +29,4 @@ export const Dialog = ({data, id, status}: dialogType) => {
         </Link>
 
     )
-};
+});

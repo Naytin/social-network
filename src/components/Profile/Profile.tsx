@@ -5,7 +5,7 @@ import PostsContainer from "./Posts/PostsContainer";
 
 
 
- const Profile = (props: PropsType) => {
+ const Profile = React.memo((props: PropsType) => {
     return (
         <div className={style.profile}>
             <ProfileInfo profile={props.profile}
@@ -15,7 +15,7 @@ import PostsContainer from "./Posts/PostsContainer";
             <PostsContainer/>
         </div>
     )
-}
+})
 
 
 export default Profile

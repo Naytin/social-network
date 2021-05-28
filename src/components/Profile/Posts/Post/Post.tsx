@@ -2,8 +2,7 @@ import React from "react";
 import style from './Post.module.scss'
 
 
-export const Post = ({message, likesCount}: postsType) => {
-
+export const Post = React.memo(({message, likesCount}: postsType) => {
     let date = new Date().toJSON().slice(0, 10);
     let time = new Date().toTimeString().slice(0, 8);
     // let dateTime = `${date} ${time}`;
@@ -28,4 +27,4 @@ export const Post = ({message, likesCount}: postsType) => {
                 <span>Likes<b>{likesCount}</b></span>
             </div>
         </div>)
-}
+})

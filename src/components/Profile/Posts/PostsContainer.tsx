@@ -2,8 +2,20 @@ import {Posts} from "./Posts"
 import {addPost, setUserProfile} from "../../../redux/actionsCreator/profileAC";
 import {AppStateType} from "../../../redux/store";
 import {connect} from "react-redux";
+import React from "react";
 
-type OwnPropsType = {}
+
+
+class PostsContainer extends React.Component<OwnPostsPropsType, DispatchProfileType> {
+
+    shouldComponentUpdate(nextProps: Readonly<OwnPostsPropsType>, nextState: Readonly<{}>, nextContext: any): boolean {
+        return nextProps != this.props || nextState != this.state
+    }
+
+    render() {
+        return <Posts posts={this.props.posts} status={this.props.status} addPost={this.props.addPost}/>;
+    }
+}
 
 
 // функция mapStateToProps которая принимает весь стейт целиком и возвращает только те данные,
@@ -21,8 +33,12 @@ const mapStateToProps = (state: AppStateType): profilePageType => {
 // для сокращения кода, мы можем не создавать callback-mapDispatchToProps, а просто передать объекты(ActionCreators) вторым параметром в connect,
 // а connect уже сам создаст mapDispatchToProps вложит каждый ActionCreators в dispatch
 // если в объекте имя ключ: значение совпадает, то мы пишем просто ключ.
-const PostsContainer = connect<profilePageType, DispatchProfileType, OwnPropsType, AppStateType>
+export default connect<profilePageType, DispatchProfileType, {}, AppStateType>
 (mapStateToProps, {addPost,setUserProfile})
-(Posts)
+(PostsContainer)
 
-export default PostsContainer
+type MapStateProfileType = {
+    posts: postsType[]
+    status: string
+}
+export type OwnPostsPropsType = MapStateProfileType & DispatchProfileType
