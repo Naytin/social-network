@@ -5,11 +5,6 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import store from './redux/store';
-import {fake} from "./redux/actionsCreator/appAC";
-
-// setInterval(() => {
-//     store.dispatch(fake())
-// }, 1000)
 
 ReactDOM.render(
     <React.StrictMode>
