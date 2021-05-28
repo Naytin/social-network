@@ -1,0 +1,20 @@
+.pagination {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    span {
+        cursor: pointer;
+        padding: 3px 7px;
+        margin: 0 5px;
+        background-color: #ccc;
+        border: 2px solid transparent;
+        border-radius: 5px;
+    }
+    .selected {
+        font-weight: bold;
+        color: red;
+        border: 2px solid rgb(11, 236, 206)!important;
+    }
+}
+

@@ -1,9 +1,24 @@
 .header {
+  color: #fff;
+  padding: 0 20px;
   background-color: #101134;
-
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   img {
     padding: 10px;
     width: 80px;
     height: 50px;
+  }
+  .login {
+    a {
+      color: #fff;
+    }
+  }
+  .logout {
+    color: #fff;
+    &:hover {
+      cursor: pointer;
+    }
   }
 }

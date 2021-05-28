@@ -1,23 +1,27 @@
 import React from "react";
 import style from './Profile.module.scss'
-import {Posts} from "./Posts/Posts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
-import {actionType, postsType} from '../../redux/state'
+import PostsContainer from "./Posts/PostsContainer";
 
-type propsType = {
-    // addPost: () => void
-    // changeMessage: (text: string) => void
-    posts: Array<postsType>
-    newPostText: string
-    dispatch: (action: actionType) => void
-}
 
-export const Profile = ({posts, newPostText,dispatch}: propsType) => {
+
+ const Profile = React.memo((props: PropsType) => {
     return (
         <div className={style.profile}>
-            <ProfileInfo/>
-            <Posts posts={posts} newPostText={newPostText} dispatch={dispatch} />
+            <ProfileInfo profile={props.profile}
+                         updateStatusProfile={props.updateStatusProfile}
+                         status={props.status}
+            />
+            <PostsContainer/>
         </div>
     )
-}
+})
 
+
+export default Profile
+// types
+type PropsType = {
+    profile: profileUserType | null | undefined
+    updateStatusProfile: (status: string) => void
+    status: string
+}

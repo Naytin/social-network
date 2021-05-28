@@ -1,25 +1,32 @@
 import React from 'react'
 import {connect} from "react-redux";
 import Dialogs from "./Dialogs";
-import {AddMessage, AddNewMessageText} from "../../redux/actionsCreator/dialogsAC";
+import {addMessage} from "../../redux/actionsCreator/dialogsAC";
+import {compose, Dispatch} from 'redux';
+import { AppStateType } from '../../redux/store';
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
+const mapStateToProps = (state: AppStateType):dialogsPageType & {} => ({
+        dialogs: state.dialogsPage.dialogs,
+        messages: state.dialogsPage.messages
+})
 
-class DialogsContainer extends  React.Component {
-
-
-    render() {
-
-        return (
-            <h1>sasa</h1>
-            // <Dialogs  dialogs={this.props}
-            //                                           messages={this.props.messages}
-            //                                           newMessageText={}/>}/>
-        )
+const mapDispatchToProps = (dispatch: Dispatch):DispatchDialogsType => {
+    return {
+        addMessage: (value: string) => {
+            dispatch(addMessage(value))
+        },
     }
 }
 
-const mapStateToProps = (state: stateType) => ({
-    dialogsPage: state.dialogsPage
-}
-)
-export default connect(mapStateToProps, {AddMessage,AddNewMessageText})(DialogsContainer)
+// при помощи compose()() последовательно вызываем(оборачиваем) компоненту
+// compose<React.ComponentType> - указываем, что это компонента
+// types connect with help generic <>
+// <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = DefaultState>
+const DialogsContainer = compose<React.ComponentType>(
+    connect<dialogsPageType,DispatchDialogsType,{}, AppStateType>
+    (mapStateToProps, mapDispatchToProps),
+    withAuthRedirect,
+)(Dialogs)
+
+export default DialogsContainer

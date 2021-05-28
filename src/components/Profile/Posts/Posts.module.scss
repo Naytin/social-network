@@ -14,35 +14,35 @@
 
 .modal {
   z-index: 5;
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
   position: absolute;
   right: 0;
   left: 0;
-  margin: 0 auto;
-  width: 350px;
-  height: 250px;
   background-color: transparent;
-  textarea {
-    height: 100%;
-    border-radius: 5px;
-    padding: 10px;
-    background-color: #b1f0f3bf;
-    &:focus {
-      outline: none;
+  form {
+    margin: 0 auto;
+    width: 350px;
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    textarea {
+      height: 100%;
+      border-radius: 5px;
+      padding: 10px;
+      background-color: #b1f0f3bf;
+      &:focus {
+        outline: none;
+      }
+    }
+    button {
+      align-self: center;
+      border-radius: 5px;
+      margin-top: 10px;
+      padding: 5px 8px;
+      background-color: #2edcdccf;
+      &:hover {
+        cursor: pointer;
+      }
     }
   }
-
-  button {
-    align-self: center;
-    border-radius: 5px;
-    margin-top: 10px;
-    padding: 5px 8px;
-    background-color: #2edcdccf;
-    &:hover {
-      cursor: pointer;
-    }
-  }
-
 }
