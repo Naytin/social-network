@@ -28,7 +28,7 @@ class App extends React.Component<PropsType> {
                         <Navbar/>
                         <main className="content">
                             <Route path="/dialogs" render={() => <DialogsContainer/>}/>
-                            <Route path={"/"} exact render={() => <Redirect to={"/profile"}/>}/>
+                            <Route exact path={["/", "/social-network"]} render={() => <Redirect to={"/profile"}/>}/>
                             <Route exact path="/profile/:userId?" render={() => <ProfileContainer/>}/>
                             <Route path="/users" render={() => <UsersContainer/>}/>
                             <Route path="/login" render={() => <Login/>}/>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {ChangeEvent} from 'react'
 import {connect} from "react-redux";
 import {compose} from 'redux';
 import Users from "./Users";
@@ -16,6 +16,8 @@ import {
     getPageSize,
     getTotalUsersCount,
 } from "../../redux/reducers/users-selector";
+import s from "./Users.module.scss";
+import Button from "../common/Button/Button";
 
 
 // нам нужна классовая компонента, когда мы хотим взаимодействовать с обьектом. и для избежания side Effect-а. в данной
@@ -24,14 +26,45 @@ import {
 // никак менять состояние стейта
 // или делать запросы на сервер,
 // а лиш через dispatcher отправлять action для изменения состояния.
+// type PropsType =  {
+//     currentValue: string
+//     timeoutId: NodeJS.Timeout
+//     pagesCount: number
+//     pages: Array<number>
+// }
 
 class UsersContainer extends React.Component<usersType & CallbacksType> {
     //componentDidMount() вызывается сразу после монтирования (то есть, вставки компонента в DOM)
     // В этом методе должны происходить действия, которые требуют наличия DOM-узлов.
+    state = {
+        currentValue: '',
+        timeoutId: 0,
+        pagesCount: 0,
+        pages: []
+    }
 
     componentDidMount() {
         this.props.usersRequest(this.props.currentPage, this.props.pageSize)
+        this.setState({
+            pagesCount: Math.ceil(this.props.totalUsersCount / this.props.pageSize)
+        })
     }
+
+    componentDidUpdate(prevProps: Readonly<usersType & CallbacksType>, prevState: Readonly<{}>, snapshot?: any) {
+        if(prevProps !== this.props) {
+            let temp = []
+            for (let i = 1; i <= this.state.pagesCount; i++) {
+                temp.push(i)
+            }
+            if(temp.length) {
+                this.setState({
+                    pages: temp
+                })
+            }
+        }
+    }
+
+
     onPageChanged = (pageNumber: number) => {
         if (this.props.setCurrentPage) {
             this.props.setCurrentPage(pageNumber)
@@ -45,8 +78,34 @@ class UsersContainer extends React.Component<usersType & CallbacksType> {
         this.props.unfollow(userId)
     }
 
+
+    onSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
+        this.setState({
+            currentValue: e.currentTarget.value
+        })
+        clearTimeout(this.state.timeoutId)
+        this.setState({
+            timeoutId: setTimeout(() => {
+                this.props.setFilter(this.state.currentValue)
+            }, 500)
+        })
+    }
+
+
     render() {
+        console.log(this.state.pagesCount)
         return (<>
+                {/*<div className={s.pagination}>*/}
+                {/*    <div>*/}
+                {/*        <input type="search" value='find user' onChange={this.onSearchChange}/>*/}
+                {/*        {!this.props.users.length && <div>Users not found</div>}*/}
+                {/*    </div>*/}
+                {/*    <div className={s.pagination_wrap__btn}>*/}
+                {/*        {this.state.pages.map(p => <Button onClick={() => this.onPageChanged(p)}*/}
+                {/*                                className={this.props.currentPage === p ? s.selected : ''}*/}
+                {/*                                key={p}>{p}</Button>)}*/}
+                {/*    </div>*/}
+                {/*</div>*/}
                 {this.props.isFetching ? <Preloader/> :
                     <Users
                         users={this.props.users}

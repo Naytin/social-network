@@ -21,10 +21,12 @@ class ProfileContainer extends React.Component<PropsType> {
         let userId = +this.props.match.params.userId
         if (!userId) {
             if(this.props.userId !== null) userId = this.props.userId
-            if(!userId) this.props.history.push('/login')
         }
-        this.props.getUserProfile(userId)
-        this.props.getUserStatus(userId)
+        if (userId) {
+            this.props.getUserProfile(userId)
+            this.props.getUserStatus(userId)
+        }
+
     }
 
     componentDidUpdate(prevProps: Readonly<PropsType>, prevState: Readonly<{}>, snapshot?: any) {

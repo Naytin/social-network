@@ -20,7 +20,7 @@ export const ProfileInfo = React.memo((props: PropsType) => {
                 <div>
                     <img className={style.profileInfo__avatar}
                         src={props.profile?.photos.small ? props.profile?.photos.small : icon}
-                         alt=""/>
+                         alt='Avatar' />
                 </div>
             </div>
             <div className={style.profileInfo__des}>

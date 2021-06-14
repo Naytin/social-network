@@ -3,9 +3,19 @@
     border: solid 2px red!important;
 }
 
-.errorMessage {
-    text-align: center;
+.formControl {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    border: none;
     background-color: #ccc;
+}
+
+.errorMessage {
+    //bottom: 20px;
+    //left: 70px;
+    position: absolute;
     color: red;
 }
 

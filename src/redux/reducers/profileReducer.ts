@@ -9,7 +9,7 @@ let initialState: profilePageType = {
         { id: 4, message: 'Goodbye', likesCount: 1 },
     ],
     profile: null,
-    status: ''
+    status: 'No status'
 };
 
 // Reducer - это чистая функция, которая принимает стейт, актион

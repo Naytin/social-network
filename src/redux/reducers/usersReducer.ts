@@ -16,9 +16,9 @@ const initialState = {
         // {id: 2, avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSq_I0JFO2DxoAV3J-sI7ajtx0qW0Q5neaY_A&usqp=CAU', followed: true, fullName: 'Sveta', status: 'Status', location: {city: 'Chernihiv', country: 'Ukraine'} },
         // {id: 3, avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSq_I0JFO2DxoAV3J-sI7ajtx0qW0Q5neaY_A&usqp=CAU', followed: false, fullName: 'John', status: 'Status', location: {city: 'Chicago', country: 'US'} }
     ],
-    pageSize: 5,
+    pageSize: 10,
     totalUsersCount: 0,
-    currentPage: 2,
+    currentPage: 1,
     isFetching: false,
     followingInProgress: []
 }

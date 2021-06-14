@@ -16,7 +16,6 @@ export const Navbar = () => {
                 <Link className={style.nav__item} to='/music'>Music</Link>
                 <Link className={style.nav__item} to='/settings'>Settings</Link>
                 <Link className={style.nav__item} to='/users'>Users</Link>
-                <Link className={style.nav__item} to='/login'>Login</Link>
             </ul>
         </nav>
     )
