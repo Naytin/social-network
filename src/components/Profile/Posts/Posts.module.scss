@@ -4,7 +4,6 @@
   .modal__open {
     padding: 5px 8px;
     border-radius: 6px;
-    background-color: #fff;
     &:hover {
       cursor: pointer;
     }
@@ -13,14 +12,16 @@
 }
 
 .modal {
+  //padding: 20px;
   z-index: 5;
   position: absolute;
   right: 0;
   left: 0;
-  background-color: transparent;
+  width: 320px;
+  //background-color: #0a0a0a61;
+  border-radius: 5px;
   form {
     margin: 0 auto;
-    width: 350px;
     height: 250px;
     display: flex;
     justify-content: center;
@@ -32,16 +33,6 @@
       background-color: #b1f0f3bf;
       &:focus {
         outline: none;
-      }
-    }
-    button {
-      align-self: center;
-      border-radius: 5px;
-      margin-top: 10px;
-      padding: 5px 8px;
-      background-color: #2edcdccf;
-      &:hover {
-        cursor: pointer;
       }
     }
   }

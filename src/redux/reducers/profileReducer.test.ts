@@ -1,5 +1,5 @@
 import profileReducer from './profileReducer';
-import {addNewPostText, addPost, setUserProfile} from "../actionsCreator/profileAC";
+import { addPost, setUserProfile} from "../actionsCreator/profileAC";
 
 let initial: profilePageType
 let user: profileUserType;
@@ -14,8 +14,8 @@ beforeEach(() => {
             },
             {id: 2, message: 'Goodbye', likesCount: 1},
         ],
-        newPostText: 'write something',
-        profile: null
+        profile: null,
+        status: 'No status'
     };
     user = {
         "aboutMe": "MarinaSn nn",
@@ -43,16 +43,16 @@ beforeEach(() => {
 
 
 test('new post text must by correct', () => {
-    const endState = profileReducer(initial, addNewPostText('my post text'))
+    const endState = profileReducer(initial, addPost('my post text'))
 
-    expect(endState.newPostText).toBe('my post text')
-    expect(endState.posts.length).toBe(2)
+    expect(endState.posts[2].message).toBe('my post text')
+    expect(endState.posts.length).toBe(3)
 })
 
 test('new post must by added', () => {
     const endState = profileReducer(initial, addPost('111'))
 
-    expect(endState.posts[2].message).toBe('write something')
+    expect(endState.posts[2].message).toBe('111')
     expect(endState.posts.length).toBe(3)
     expect(endState.posts[2].id).toBe(4)
 })

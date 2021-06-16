@@ -38,7 +38,8 @@ beforeEach(() => {
         totalUsersCount: 0,
         currentPage: 2,
         isFetching: false,
-        followingInProgress: []
+        followingInProgress: [],
+        filter: 'all'
     };
     initialWithUsers = {
         users: [
@@ -69,7 +70,8 @@ beforeEach(() => {
         totalUsersCount: 0,
         currentPage: 2,
         isFetching: false,
-        followingInProgress: []
+        followingInProgress: [],
+        filter: 'all'
     };
 
 })

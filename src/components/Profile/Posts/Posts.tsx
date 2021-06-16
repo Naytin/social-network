@@ -4,6 +4,9 @@ import style from './Posts.module.scss'
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {required} from "../../../utils/validators";
 import {TextArea} from "../../common/FormsControls/FormsControls";
+import Button from "../../common/Button/Button";
+import {useSelector} from "react-redux";
+import {AppStateType} from "../../../redux/store";
 
 // создаем компонент form и типизируем стандартным InjectedFormProps который принимает дженерик
 const AddNewPostForm: React.FC<InjectedFormProps<NewPostType>> = React.memo((props) => {
@@ -18,7 +21,7 @@ const AddNewPostForm: React.FC<InjectedFormProps<NewPostType>> = React.memo((pro
                    name={'newPostMessage'}
                    validate={[required]}
             />
-            <button>Add Post</button>
+            <Button>Send post</Button>
         </form>
     )
 })
@@ -30,6 +33,7 @@ const AddNewPost = reduxForm<NewPostType>({
 })(AddNewPostForm)
 
 export const Posts = React.memo(({posts, addPost}: profilePageType & DispatchProfileType) => {
+    const isAuth = useSelector<AppStateType, boolean>(state => state.auth.isAuth)
     const [modal, setModal] = React.useState(false)
     const onSubmit = (text: NewPostType) => {
         addPost(text.newPostMessage)
@@ -42,7 +46,7 @@ export const Posts = React.memo(({posts, addPost}: profilePageType & DispatchPro
     let post = posts.map((elem, i) => <Post message={elem.message} likesCount={elem.likesCount} id={elem.id} key={i}/>)
     return (
         <div className={style.posts__wrapper}>
-            <span className={style.modal__open} onClick={onModal}></span>
+            {/*<Button  onClick={onModal}>Add Post</Button>*/}
             {modal &&
             <div className={style.modal}>
                 <AddNewPost onSubmit={onSubmit}/>{/* Передаем в форму callback который под капотом
@@ -50,7 +54,7 @@ export const Posts = React.memo(({posts, addPost}: profilePageType & DispatchPro
             </div>
             }
             <div className="post">
-                {post}
+                {isAuth ? post : 'posts not found'}
             </div>
         </div>)
 })

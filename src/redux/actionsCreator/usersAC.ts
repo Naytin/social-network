@@ -30,10 +30,13 @@ export const usersRequest = (page: number,pageSize: number):ThunkType => {
         dispatch(toggleIsFetching(true))
         dispatch(setCurrentPage(page))
 
-        usersAPI.getUsers(page, pageSize).then(data => {
+        usersAPI.getUsers(page, pageSize)
+            .then(data => {
             dispatch(toggleIsFetching(false))
             dispatch(setUsersAC(data.items))
             dispatch(setTotalUsersCount(data.totalCount))
+        }).catch(e => {
+            alert(e)
         });
     }
 }
@@ -49,7 +52,9 @@ export const follow = (userId: number):ThunkType => {
                     dispatch(followAC(userId))
                     dispatch(toggleFollowingInProgress(false, userId))
                 }
-            })
+            }).catch(e => {
+            alert('you are not authorized')
+        })
     }
 }
 export const unfollow = (userId: number):ThunkType => {
@@ -62,7 +67,9 @@ export const unfollow = (userId: number):ThunkType => {
                     dispatch(unfollowAC(userId))
                     dispatch(toggleFollowingInProgress(false, userId))
                 }
-            })
+            }).catch(e => {
+            alert(e)
+        })
     }
 }
 

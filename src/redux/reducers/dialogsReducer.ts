@@ -9,7 +9,8 @@ const initialState: dialogsPageType = {
             status: {
                 title: 'Online',
                 isOnline: false
-            }
+            },
+            messages: null
         },
         {
             id: '2',
@@ -18,7 +19,8 @@ const initialState: dialogsPageType = {
             status: {
                 title: 'Angelina left 7 minute ago',
                 isOnline: false
-            }
+            },
+            messages: null
         },
         {
             id: '3',
@@ -27,7 +29,8 @@ const initialState: dialogsPageType = {
             status: {
                 title: 'Angelina left 1 day ago',
                 isOnline: false
-            }
+            },
+            messages: null
         },
         {
             id: '4',
@@ -36,7 +39,8 @@ const initialState: dialogsPageType = {
             status: {
                 title: 'Online',
                 isOnline: true
-            }
+            },
+            messages: null
         },
         {
             id: '5',
@@ -45,7 +49,8 @@ const initialState: dialogsPageType = {
             status: {
                 title: 'Online',
                 isOnline: true
-            }
+            },
+            messages: null
         },
         {
             id: '6',
@@ -54,7 +59,12 @@ const initialState: dialogsPageType = {
             status: {
                 title: 'Online',
                 isOnline: true
-            }
+            },
+            messages: [
+                { id: 1, message: "Hello, I'm Sveta" , name: 'Svet_v' },
+                { id: 2, message: 'Hi!, how are you?', name: 'Naytin' },
+                { id: 3, message: 'I,m fine, thx!', name: 'Svet_v' },
+            ]
         },
         {
             id: '7',
@@ -63,7 +73,12 @@ const initialState: dialogsPageType = {
             status: {
                 title: 'Online',
                 isOnline: true
-            }
+            },
+            messages: [
+                { id: 1, message: "Hello, I'm Lera" , name: 'Lera' },
+                { id: 2, message: 'Hi!, how are you?', name: 'Naytin' },
+                { id: 3, message: 'I,m fine, thx!', name: 'Lera' },
+            ]
         },
         {
             id: '8',
@@ -72,16 +87,20 @@ const initialState: dialogsPageType = {
             status: {
                 title: 'Online',
                 isOnline: true
-            }
+            },
+            messages: [
+                { id: 1, message: "Hello, I'm Valera" , name: 'Valera' },
+                { id: 2, message: 'I,m fine, thx!', name: 'Valera' },
+            ]
         },
     ],
     messages: [
         { id: 1, message: 'Hello, how are you?', name: 'Sveta' },
-        { id: 2, message: 'I,m a good student', name: 'my' },
+        { id: 2, message: 'I,m fine, thx!', name: 'Naytin' },
         { id: 3, message: 'you, how are you', name: 'Alina' },
-        { id: 4, message: 'goodbye my friend', name: 'my' },
+        { id: 4, message: 'goodbye my friend', name: 'Naytin' },
         { id: 5, message: 'goodbye my friend', name: 'Artem' },
-        { id: 6, message: 'goodbye my friend', name: 'my' },
+        { id: 6, message: 'goodbye my friend', name: 'Naytin' },
         { id: 7, message: 'goodbye my friend', name: 'Artem' },
         { id: 8, message: 'goodbye my friend', name: 'Artem' },
         { id: 9, message: 'goodbye my friend', name: 'Artem' },
@@ -98,7 +117,7 @@ const dialogsReducer = (state: dialogsPageType = initialState, action: actionTyp
             let messageText = action.value;
             return {
                 ...state,
-                messages: [...state.messages, { id: 11, message: messageText ? messageText : '', name: 'my' }]
+                messages: [...state.messages, { id: 11, message: messageText ? messageText : '', name: 'Naytin' }]
             }
         default:
             return state // если ничего не изменилось, по дефолту возвращаем неизмененный стейт

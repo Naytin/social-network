@@ -11,12 +11,17 @@ type dialogType = {
     data: objectType
     id: number
     status: statusType,
+    userId: string
+    getUserId: (userId: string) => void
 }
-export const Dialog = React.memo(({data, id, status}: dialogType) => {
-    let path = `/dialogs/${id}`
+export const Dialog = React.memo(({data, status, userId, getUserId}: dialogType) => {
+    let path = `/dialogs/user/${data.name}`
+    const getUserIdHandler = () => {
+        getUserId(userId)
+    }
     return (
         <Link to={path}>
-            <div className={style.dialog}>
+            <div className={style.dialog} onClick={getUserIdHandler}>
                 <div className={style.avatar__wrapper}>
                     <img src={data.avatar} alt=""/>
                     <span className={status.isOnline ? style.online : style.offline }></span>

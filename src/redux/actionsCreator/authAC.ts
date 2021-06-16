@@ -18,6 +18,8 @@ export const auth = ():ThunkType => {
                     let isAuth = true
                     dispatch(setAuthUserDataAC({email, id, login, isAuth}))
                 }
+            }).catch(e => {
+                alert(e)
             })
     }
 }
@@ -33,7 +35,9 @@ export const login = (formData: FormDataType):ThunkType => {
                     let action:any = stopSubmit('login',{_error: error})
                     dispatch(action);
                 }
-            })
+            }).catch(e => {
+            alert(e)
+        })
     }
 }
 
@@ -48,7 +52,9 @@ export const logout = ():ThunkType => {
                     let login = null
                     dispatch(setAuthUserDataAC({email,id,login, isAuth}))
                 }
-            })
+            }).catch(e => {
+            alert(e)
+        })
     }
 }
 

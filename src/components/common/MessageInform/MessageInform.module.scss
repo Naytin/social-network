@@ -1,11 +1,12 @@
 .box__message {
   position: absolute;
-  top: 60px;
+  top: 70px;
   color: #fff;
   padding: 10px;
   background-color:#f79393e6;
   border-radius: 5px 5px 5px 5px;
   text-transform: uppercase;
+  z-index: 1000;
   &:before {
     content: '';
     position: absolute;

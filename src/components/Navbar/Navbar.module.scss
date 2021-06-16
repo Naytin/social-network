@@ -1,7 +1,7 @@
 .nav {
   display: flex;
   justify-content: center;
-  width: 100px;
+  width: 50px;
   background-color: #07006b;
   margin-right: 20px;
   padding: 100px 0 0 0;
@@ -11,11 +11,13 @@
     padding: 0;
   }
   &__item {
+    font-size: 30px;
     text-decoration: none;
-    color: aqua;
+    //color: aqua;
+    color: #fff;
     list-style: none;
     transition: 0.3s ease-in;
-    margin-bottom: 10px;
+    margin-bottom: 30px;
     &:hover {
       color: #0670af;
       cursor: pointer;

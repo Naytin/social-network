@@ -4,11 +4,9 @@
     text-decoration: none;
     padding: .5em 1em calc(.5em + 3px);
     border-radius: 7px;
-    //background: rgb(3, 85, 252);
     transition: 0.2s;
     background: transparent;
     border: 3px solid rgb(3, 85, 252);
-
     &:hover {
         background: rgb(3, 85, 252);
         cursor: pointer;

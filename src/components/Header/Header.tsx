@@ -16,7 +16,6 @@ export const Header = ({login, isAuth, logout}: PropsType) => {
             <div>
                 <img className={style.logo} src="https://www.designlime.co.uk/wp-content/uploads/2020/07/social-network-icon-png.png"
                      alt="logo"/>
-                Stello
             </div>
 
                 <div className={style.loginContainer}>
@@ -31,7 +30,6 @@ export const Header = ({login, isAuth, logout}: PropsType) => {
 
                             <Button onClick={logout}>Logout</Button>
                         </> : <NavLink to='/login' className={style.login}>Login</NavLink>}
-
                 </div>
         </header>
     )

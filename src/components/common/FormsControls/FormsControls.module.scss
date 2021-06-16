@@ -4,17 +4,19 @@
 }
 
 .formControl {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 5px;
-    border-radius: 5px;
-    border: none;
-    background-color: #ccc;
+    padding: 9px;
+    margin-right: 10px;
+    border-radius: 3px;
+    border: 1px solid #32c9d8bf;
+    background-color: #d8d7d759;
+    color: #fff;
+    margin-bottom: 20px;
+    &::placeholder {
+        color: #fff;
+    }
 }
 
 .errorMessage {
-    //bottom: 20px;
-    //left: 70px;
     position: absolute;
     color: red;
 }

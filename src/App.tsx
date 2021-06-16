@@ -11,6 +11,7 @@ import {AppStateType} from "./redux/store";
 import Preloader from "./components/common/Preloader/Preloader";
 import {initializeApp} from "./redux/actionsCreator/appAC";
 
+
 class App extends React.Component<PropsType> {
     componentDidMount() {
         this.props.initializeApp() //

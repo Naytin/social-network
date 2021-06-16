@@ -42,6 +42,7 @@ type dialogsType = {
     avatar: string,
     name: string,
     status: statusType
+    messages: Array<messagesType> | null
 }
 type messagesType = {
     id: number,

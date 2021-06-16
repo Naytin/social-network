@@ -13,12 +13,18 @@ export const getUserProfile = (userId: number): ThunkType =>
     (dispatch) => {
         profileAPI.getProfile(userId)
             .then(data => dispatch(setUserProfile(data)))
+            .catch(e => {
+                alert(e)
+            })
     }
 
 export const getUserStatus = (userId: number): ThunkType =>
     (dispatch) => {
         profileAPI.getStatus(userId)
             .then(data => dispatch(setStatus(data)))
+            .catch(e => {
+                alert(e)
+            })
     }
 
 export const updateStatusProfile = (status: string): ThunkType =>
@@ -26,6 +32,9 @@ export const updateStatusProfile = (status: string): ThunkType =>
         profileAPI.updateStatus(status)
             .then(data => {
                 if (data.resultCode === 0) dispatch(setStatus(status))
+            })
+            .catch(e => {
+                alert(e)
             })
     }
 

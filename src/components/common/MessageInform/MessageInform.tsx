@@ -7,7 +7,9 @@ const MessageInform: React.FC<HTMLAttributes<HTMLDivElement>> = React.memo(({
                                       className,
                                       ...restProps// все остальные пропсы попадут в объект restProps, там же будет children
                                   }) => {
-    return <div className={s.box__message} {...restProps}/>
+
+    const finalClassName = `${className ? className : ''} ${s.box__message}`;
+    return <div className={finalClassName} {...restProps}/>
 })
 
 export default MessageInform
