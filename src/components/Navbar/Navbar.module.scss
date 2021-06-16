@@ -9,6 +9,9 @@
     display: flex;
     flex-direction: column;
     padding: 0;
+    .active {
+      color: #109ff5;
+    }
   }
   &__item {
     font-size: 30px;
@@ -19,11 +22,13 @@
     transition: 0.3s ease-in;
     margin-bottom: 30px;
     &:hover {
-      color: #0670af;
+      color: #109ff5;
       cursor: pointer;
     }
   }
 }
+
+
 
 
 //.open__menu {
