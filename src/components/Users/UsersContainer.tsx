@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from 'react'
+import React from 'react'
 import {connect} from "react-redux";
 import {compose} from 'redux';
 import Users from "./Users";
@@ -16,9 +16,7 @@ import {
     getPageSize,
     getTotalUsersCount,
 } from "../../redux/reducers/users-selector";
-import s from "./Users.module.scss";
-import Button from "../common/Button/Button";
-import MessageInform from "../common/MessageInform/MessageInform";
+// import Pagination from "./Pagination";
 
 
 // нам нужна классовая компонента, когда мы хотим взаимодействовать с обьектом. и для избежания side Effect-а. в данной
@@ -37,35 +35,9 @@ import MessageInform from "../common/MessageInform/MessageInform";
 class UsersContainer extends React.PureComponent<usersType & CallbacksType> {
     //componentDidMount() вызывается сразу после монтирования (то есть, вставки компонента в DOM)
     // В этом методе должны происходить действия, которые требуют наличия DOM-узлов.
-    state = {
-        currentValue: '',
-        timeoutId: 0,
-        pagesCount: 0,
-        pages: []
-    }
-
     componentDidMount() {
         this.props.usersRequest(this.props.currentPage, this.props.pageSize)
-        this.setState({
-            pagesCount: Math.ceil(this.props.totalUsersCount / this.props.pageSize)
-        })
     }
-
-    componentDidUpdate(prevProps: Readonly<usersType & CallbacksType>, prevState: Readonly<{}>, snapshot?: any) {
-        if(prevProps !== this.props) {
-            let temp = []
-            for (let i = 1; i <= this.state.pagesCount; i++) {
-                temp.push(i)
-            }
-            if(temp.length) {
-                this.setState({
-                    pages: temp
-                })
-            }
-        }
-    }
-
-
     onPageChanged = (pageNumber: number) => {
         if (this.props.setCurrentPage) {
             this.props.setCurrentPage(pageNumber)
@@ -79,38 +51,20 @@ class UsersContainer extends React.PureComponent<usersType & CallbacksType> {
         this.props.unfollow(userId)
     }
 
-
-    onSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
-        this.setState({
-            currentValue: e.currentTarget.value
-        })
-        clearTimeout(this.state.timeoutId)
-        this.setState({
-            timeoutId: setTimeout(() => {
-                this.props.setFilter(this.state.currentValue)
-            }, 500)
-        })
-    }
-
-
     render() {
         return (<>
-                <div className={s.pagination}>
-                    <div className={s.input__wrapper}>
-                        <input placeholder={'Search here'} className={s.input__item} type="search" value={this.state.currentValue} onChange={this.onSearchChange}/>
-                        {!this.props.users.length && <MessageInform>user not found</MessageInform>}
-                    </div>
-                    <div className={s.pagination_wrap__btn}>
-                        {this.state.pages.map(p => <Button onClick={() => this.onPageChanged(p)}
-                                                className={this.props.currentPage === p ? s.selected : ''} key={p}>{p}</Button>)}
-                    </div>
-                </div>
                 {this.props.isFetching ? <Preloader/> :
                     <Users
                         users={this.props.users}
+                        totalUsersCount={this.props.totalUsersCount}
+                        pageSize={this.props.pageSize}
+                        currentPage={this.props.currentPage}
                         follow={this.userFollow}
                         unfollow={this.userUnfollow}
+                        onPageChanged={this.onPageChanged}
                         followingInProgress={this.props.followingInProgress}
+                        setFilter={this.props.setFilter}
+                        filter={this.props.filter}
                     />
                 }
             </>

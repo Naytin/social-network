@@ -1,6 +1,6 @@
 import React from 'react';
 import {Navbar} from "./components/Navbar/Navbar";
-import {BrowserRouter, Redirect, Route} from "react-router-dom";
+import {HashRouter, Redirect, Route} from "react-router-dom";
 import DialogsContainer  from './components/Dialogs/DialogsContainer';
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import UsersContainer from "./components/Users/UsersContainer";
@@ -22,7 +22,7 @@ class App extends React.Component<PropsType> {
             return <Preloader/>
         }
         return (
-            <BrowserRouter>
+            <HashRouter>
                 <div className="app-wrapper">
                     <HeaderContainer/>
                     <div className="wrapper">
@@ -36,7 +36,7 @@ class App extends React.Component<PropsType> {
                         </main>
                     </div>
                 </div>
-            </BrowserRouter>
+            </HashRouter>
         )
     }
 }

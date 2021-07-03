@@ -120,3 +120,24 @@
   text-align: center;
   font-size: 2rem;
 }
+
+@media (max-width: 600px) {
+  .dialogs {
+    flex-direction: column;
+    &Item,.messages{
+      margin-right: 30px;
+      width: 100%;
+    }
+  }
+  .message__wrapper,.dialog__wrapper {
+    height: 170px;
+  }
+  .messages {
+    margin-top: 40px;
+    justify-content: space-between;
+  }
+
+  .message__wrapper,.messages {
+    height: 40vh;
+  }
+}

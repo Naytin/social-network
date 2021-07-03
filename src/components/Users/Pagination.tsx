@@ -1,77 +1,66 @@
-//https://codepen.io/robertcooper_rc/pen/XeabLa
+import React, {ChangeEvent, useEffect, useState} from 'react';
+import {useDispatch, useSelector} from "react-redux";
+import {AppStateType} from "../../redux/store";
+import s from "./Users.module.scss";
+import MessageInform from "../common/MessageInform/MessageInform";
+import Button from "../common/Button/Button";
+import {setCurrentPage, setFilter, usersRequest} from "../../redux/actionsCreator/usersAC";
+type PropsType = {
+    pagesCount: number
+}
+const Pagination = React.memo(({pagesCount}:PropsType) => {
+    console.log(pagesCount)
+    const [pages, setPages] = useState<number[]>([])
+    // const [pagesCount, setPagesCount] = useState(0)
+    const [currentValue, setCurrentValue] = useState('')
+    const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout>()
+    const dispatch = useDispatch()
+    const state = useSelector<AppStateType, usersType>(state => state.usersPage)
+    // usersRequest(state.currentPage, state.pageSize)
+    // setPagesCount(Math.ceil(state.totalUsersCount / state.pageSize))
 
 
-// let pages = 25;
-//
-// document.getElementById('pagination').innerHTML = createPagination(pages, 12);
-//
-// function createPagination(pages, page) {
-//     let str = '<ul>';
-//     let active;
-//     let pageCutLow = page - 1;
-//     let pageCutHigh = page + 1;
-//     // Show the Previous button only if you are on a page other than the first
-//     if (page > 1) {
-//         str += '<li class="page-item previous no"><a onclick="createPagination(pages, '+(page-1)+')">Previous</a></li>';
-//     }
-//     // Show all the pagination elements if there are less than 6 pages total
-//     if (pages < 6) {
-//         for (let p = 1; p <= pages; p++) {
-//             active = page == p ? "active" : "no";
-//             str += '<li class="'+active+'"><a onclick="createPagination(pages, '+p+')">'+ p +'</a></li>';
-//         }
-//     }
-//     // Use "..." to collapse pages outside of a certain range
-//     else {
-//         // Show the very first page followed by a "..." at the beginning of the
-//         // pagination section (after the Previous button)
-//         if (page > 2) {
-//             str += '<li class="no page-item"><a onclick="createPagination(pages, 1)">1</a></li>';
-//             if (page > 3) {
-//                 str += '<li class="out-of-range"><a onclick="createPagination(pages,'+(page-2)+')">...</a></li>';
-//             }
-//         }
-//         // Determine how many pages to show after the current page index
-//         if (page === 1) {
-//             pageCutHigh += 2;
-//         } else if (page === 2) {
-//             pageCutHigh += 1;
-//         }
-//         // Determine how many pages to show before the current page index
-//         if (page === pages) {
-//             pageCutLow -= 2;
-//         } else if (page === pages-1) {
-//             pageCutLow -= 1;
-//         }
-//         // Output the indexes for pages that fall inside the range of pageCutLow
-//         // and pageCutHigh
-//         for (let p = pageCutLow; p <= pageCutHigh; p++) {
-//             if (p === 0) {
-//                 p += 1;
-//             }
-//             if (p > pages) {
-//                 continue
-//             }
-//             active = page == p ? "active" : "no";
-//             str += '<li class="page-item '+active+'"><a onclick="createPagination(pages, '+p+')">'+ p +'</a></li>';
-//         }
-//         // Show the very last page preceded by a "..." at the end of the pagination
-//         // section (before the Next button)
-//         if (page < pages-1) {
-//             if (page < pages-2) {
-//                 str += '<li class="out-of-range"><a onclick="createPagination(pages,'+(page+2)+')">...</a></li>';
-//             }
-//             str += '<li class="page-item no"><a onclick="createPagination(pages, pages)">'+pages+'</a></li>';
-//         }
-//     }
-//     // Show the Next button only if you are on a page other than the last
-//     if (page < pages) {
-//         str += '<li class="page-item next no"><a onclick="createPagination(pages, '+(page+1)+')">Next</a></li>';
-//     }
-//     str += '</ul>';
-//     // Return the pagination string to be outputted in the pug templates
-//     document.getElementById('pagination').innerHTML = str;
-//     return str;
-// }
+    useEffect(() => {
+        if(pagesCount) {
+            let temp = []
+            for (let i = 1; i <= pagesCount; i++) {
+                temp.push(i)
+            }
+            if(temp.length) {
+                setPages(temp)
+            }
+        }
+    },[])
 
-export default {}
+    const handleChangePage = (pageNumber: number) => {
+        dispatch(setCurrentPage(pageNumber))
+        dispatch(usersRequest(pageNumber, state.pageSize))
+    }
+
+    const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
+        setCurrentValue(e.currentTarget.value)
+        if(timeoutId)
+        clearTimeout(timeoutId)
+
+        let id = setTimeout(() => {
+            setFilter(currentValue)
+        }, 500)
+        setTimeoutId(id)
+
+    }
+
+    return (<div className={s.pagination}>
+            <div className={s.input__wrapper}>
+                <input placeholder={'Search here'} className={s.input__item} type="search" value={currentValue} onChange={handleSearch}/>
+                {!state.users.length && <MessageInform>user not found</MessageInform>}
+            </div>
+            <div className={s.pagination_wrap__btn}>
+                {pages.map(p => <Button onClick={() => handleChangePage(p)}
+                                                   className={state.currentPage === p ? s.selected : ''} key={p}>{p}</Button>)}
+            </div>
+        </div>
+    );
+});
+
+export default Pagination;
+

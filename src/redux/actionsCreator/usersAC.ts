@@ -25,11 +25,9 @@ export const setFilter = (filter: string): setFilterType => ({type: 'SET_FILTER'
 
 // thunks
 export const usersRequest = (page: number,pageSize: number):ThunkType => {
-
     return (dispatch) => {
         dispatch(toggleIsFetching(true))
         dispatch(setCurrentPage(page))
-
         usersAPI.getUsers(page, pageSize)
             .then(data => {
             dispatch(toggleIsFetching(false))

@@ -9,7 +9,7 @@ export const setAuthUserDataAC = ({email,id,login,isAuth}:AuthStateType):authUse
     ({ type: SET_USER_DATA, payload: {email, id,  login, isAuth} })
 
 // thunks
-export const auth = ():ThunkType => {
+export const auth = ():ThunkType => { 
     return (dispatch) => {
         return authMe.auth()
             .then(data => {
